@@ -56,8 +56,10 @@ a:hover {
     padding-right:20px;
     position:relative;
     p:nth-child(1){
+      font-size: 24px;
+      transition: color 0.3s ease;
+      color:@mainColor;
       >a{
-        display: block;
         font-size: 24px;
         transition: color 0.3s ease;
         color:@mainColor;
@@ -78,7 +80,7 @@ a:hover {
       color:@mainColor;
     }
     .list1-content{
-      border-bottom:1px solid @border-bottom;
+      border-bottom:1px solid @borderColor;
       position:relative;
       min-height:170px;
       img{

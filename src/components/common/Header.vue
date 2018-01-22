@@ -1,9 +1,9 @@
 <template>
   <div class="header">
     <div class="container">
-      <p class="my-logo">bangbang</p>
+      <p class="my-logo"><router-link to="/">bangbang</router-link></p>
       <ul class="nav">
-        <li v-for="(item) in navList" :key="item.id"><router-link to="/resContentList"> {{item.cname}}</router-link></li>
+        <li v-for="(item) in navList" :key="item.id"><router-link :to="{ path: '/resContentList',query: { type: item.name }}"> {{item.cname}}</router-link></li>
         <li><router-link to="/resContentList"> 项目案例</router-link></li>
         <li><router-link to="/resContentList"> 程序员社区</router-link></li>
       </ul>
@@ -41,12 +41,10 @@ export default {
   top: 0;
   width: 100%;
   height: 60px;
-  line-height:60px;
   background: #333;
   color:#fff;
   z-index: 999;
   transition: all 1s ease;
-  opacity: 1;
   .my-logo{
     float:left;
     font-family: 'Open Sans',sans-serif;
@@ -54,10 +52,14 @@ export default {
     font-style: italic;
     font-size: 2em;
     display: inline-block;
-    color:@mainColor;
     position: relative;
+    margin-top:5px;
+    a{
+      color:@mainColor;
+    }
   }
   ul{
+    line-height:60px;
     margin-left:40px;
     float:left;
     li{

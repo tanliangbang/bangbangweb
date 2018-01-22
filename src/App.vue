@@ -29,7 +29,7 @@ export default {
    background:linear-gradient(to bottom right, #50a3a2 0%, #53e3a6 100%);
  }
  .pageContent{
-   padding-top:80px;
+   padding-top:60px;
  }
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;

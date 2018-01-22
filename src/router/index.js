@@ -6,12 +6,17 @@ var routers = [
   {
     path: '/',
     name: 'Index',
-    component: (resolve) => require(['@/components/Index'], resolve)
+    component: (resolve) => require(['@/page/Index'], resolve)
   },
   {
     path: '/resContentList',
-    name: 'ResContentList',
-    component: (resolve) => require(['@/components/ResContentList'], resolve)
+    name: 'resContentList',
+    component: (resolve) => require(['@/page/res/ResContentList'], resolve)
+  },
+  {
+    path: '/resContent',
+    name: 'resContent',
+    component: (resolve) => require(['@/page/res/ResContent'], resolve)
   }
 ]
 
