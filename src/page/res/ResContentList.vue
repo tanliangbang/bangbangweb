@@ -1,46 +1,35 @@
 <template>
-  <div class="resContentList">
+  <div class="resContentList" v-if="resContentList!==null">
     <div class="container">
       <div class="main">
-        <List></List>
+        <List v-if="resContentList!==null" v-bind:resContentList="resContentList" v-bind:type="type"></List>
       </div>
       <div class="right">
-          <div class="right-list1">
-              <div>阅读排行</div>
-              <div v-for="(item) in readyRank" :key="item.id" class="right-list1-item">
-                <img :src="item.content.titleImg">
-                <p>{{item.content.title}}</p>
-                <div>{{item.content.from}} 发表月:{{formatDate(item.createTime)}}</div>
-              </div>
-          </div>
-          <div class="right-list1">
-            <div>阅读排行</div>
-            <div v-for="(item) in recommend" :key="item.id" class="right-list1-item">
-              <img :src="item.content.titleImg">
-              <p>{{item.content.title}}</p>
-              <div>{{item.content.from}} 发表月:{{formatDate(item.createTime)}}</div>
-            </div>
-          </div>
-
+        <RightList  v-bind:rightList="readyRank" v-bind:type="type" v-bind:title="'阅读排行'"/>
+        <RightList  v-bind:rightList="recommend" v-bind:type="type" v-bind:title="'推荐排行'"/>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import {getReadyRank, getRecommend} from '../../service/getData'
+import {getReadyRank, getRecommend, getResContentList} from '../../service/getData'
 import Tool from '../../utils/Tool'
 import List from '../../components/res/List'
+import RightList from '../../components/res/RightList'
 
 export default {
   name: 'ResContentList',
   components: {
-    List
+    List,
+    RightList
   },
   data () {
     return {
       readyRank: null,
-      recommend: null
+      recommend: null,
+      resContentList: null,
+      type: null
     }
   },
   created () {
@@ -48,8 +37,11 @@ export default {
   },
   methods: {
     async initData () {
-      this.readyRank = await getReadyRank(this.$route.query.type, 5)
-      this.recommend = await getRecommend(this.$route.query.type, 5)
+      this.type = this.$route.query.type
+      let obj = await getResContentList(this.type, 0, 10)
+      this.resContentList = obj.content
+      this.readyRank = await getReadyRank(this.type, 5)
+      this.recommend = await getRecommend(this.type, 5)
     },
     formatDate (date) {
       return Tool.formatDate1(date)
@@ -95,37 +87,4 @@ export default {
      margin-top:20px;
     padding-top:20px;
   }
-  .right-list1{
-    padding:10px;
-     >div:nth-child(1){
-      padding-top:10px;
-      color:@mainColor;
-      padding-bottom:5px;
-      border-bottom:1px solid @borderColor;
-     }
-     .right-list1-item{
-        position:relative;
-        margin-top:10px;
-        border-bottom:1px dashed @borderColor;
-        padding-bottom:15px;
-        min-height:70px;
-        img{
-          width:70px;
-          height:60px;
-          position:absolute;
-        }
-       >p{
-         padding-left:80px;
-         font-size:12px;
-         color: @mainColor;
-       }
-       >div{
-         padding-left:80px;
-         margin-top:5px;
-         font-size:12px;
-         color:#666;
-       }
-     }
-  }
-
 </style>
