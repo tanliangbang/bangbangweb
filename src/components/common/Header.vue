@@ -4,8 +4,8 @@
       <p class="my-logo"><router-link to="/">bangbang</router-link></p>
       <ul class="nav">
         <li><router-link to="/"> 首页 </router-link></li>
-        <li v-for="(item) in navList" :key="item.id"><router-link :to="{ path: '/resContentList',query: { type: item.name }}"> {{item.cname}}</router-link></li>
-        <li><router-link to="/resContentList"> 项目案例</router-link></li>
+        <li><router-link to="/resContentList">技术文章</router-link></li>
+        <li><router-link to="/myProduction"> 作品展示</router-link></li>
         <li><router-link to="/resContentList"> 程序员社区</router-link></li>
       </ul>
     </div>

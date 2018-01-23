@@ -17,6 +17,11 @@ var routers = [
     path: '/resContent',
     name: 'resContent',
     component: (resolve) => require(['@/page/res/ResContent'], resolve)
+  },
+  {
+    path: '/myProduction',
+    name: 'myProduction',
+    component: (resolve) => require(['@/page/production/MyProduction'], resolve)
   }
 ]
 

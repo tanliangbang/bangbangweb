@@ -1,5 +1,14 @@
 <template>
   <div class="resContentList" v-if="resContentList!==null">
+    <div class="nav">
+      <div class="container">
+        <ul>
+          <li v-for="(item) in navList" :key="item.id" :class="item.name===type?'selectedBottom':''">
+            <router-link :to="{ path: '/resContentList',query: { type: item.name }}">{{item.cname}}</router-link>
+          </li>
+        </ul>
+      </div>
+    </div>
     <div class="container">
       <div class="main">
         <List v-if="resContentList!==null" v-bind:resContentList="resContentList" v-bind:type="type"></List>
@@ -13,7 +22,7 @@
 </template>
 
 <script>
-import {getReadyRank, getRecommend, getResContentList} from '../../service/getData'
+import {getReadyRank, getRecommend, getResContentList, getNav} from '../../service/getData'
 import Tool from '../../utils/Tool'
 import List from '../../components/res/List'
 import RightList from '../../components/res/RightList'
@@ -29,7 +38,8 @@ export default {
       readyRank: null,
       recommend: null,
       resContentList: null,
-      type: null
+      type: null,
+      navList: null
     }
   },
   created () {
@@ -38,6 +48,12 @@ export default {
   methods: {
     async initData () {
       this.type = this.$route.query.type
+      if (!this.type || this.type == null) {
+        this.navList = await getNav()
+        this.type = this.navList[0].name
+      } else if (this.navList === null) {
+        this.navList = await getNav()
+      }
       let obj = await getResContentList(this.type, 0, 10)
       this.resContentList = obj.content
       this.readyRank = await getReadyRank(this.type, 5)
@@ -85,6 +101,25 @@ export default {
   .mainList{
      background:#fff;
      margin-top:20px;
-    padding-top:20px;
+     padding-top:20px;
+  }
+  .nav{
+    width:100%;
+    height:50px;
+    background:#fff;
+    margin-bottom:10px;
+    border-bottom:1px solid @borderColor;
+    line-height:47px;
+    ul{
+      li{
+        float:left;
+        margin:0px 20px;
+        font-size:14px;
+        color:#71777c;
+      }
+    }
+    .selectedBottom{
+      border-bottom:3px solid @mainColor;
+    }
   }
 </style>

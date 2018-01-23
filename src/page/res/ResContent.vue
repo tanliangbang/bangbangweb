@@ -1,5 +1,6 @@
 <template>
   <div class="resContent" v-if="resContent!==null">
+
     <div class="container">
       <div class="main">
         <div>
@@ -51,10 +52,10 @@ export default {
   methods: {
     async initData () {
       this.type = this.$route.query.type
-      this.readyRank = await getReadyRank(this.type, 5)
-      this.recommend = await getRecommend(this.type, 5)
       let obj = await getResContentById(this.$route.query.id, this.type)
       this.resContent = obj[0]
+      this.readyRank = await getReadyRank(this.type, 5)
+      this.recommend = await getRecommend(this.type, 5)
     },
     formatDate (date) {
       return Tool.formatDate1(date)
@@ -104,5 +105,4 @@ export default {
     margin-top:20px;
     padding-top:20px;
   }
-
 </style>
