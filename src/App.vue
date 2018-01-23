@@ -1,7 +1,7 @@
 <template>
   <div id="app">
    <Header></Header>
-    <div class="pageContent">
+    <div class="pageContent" v-bind:style="{ minHeight:minHeight+'px' }">
       <router-view/>
     </div>
     <Footer></Footer>
@@ -14,9 +14,17 @@ import Footer from './components/common/Footer'
 
 export default {
   name: 'App',
+  data () {
+    return {
+      minHeight: '0px'
+    }
+  },
   components: {
     Header,
     Footer
+  },
+  mounted () {
+    this.minHeight = document.documentElement.clientHeight-120
   }
 }
 </script>

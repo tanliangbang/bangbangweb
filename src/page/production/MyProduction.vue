@@ -2,28 +2,71 @@
   <div class="myProduction">
       <div class="container">
         <div class="productionList">
-                <div class="box-3d">
+                <div>
+                   <div  v-on:mouseenter="showCode($event)">
+                     <div class="hide">
+                       <img src="../../assets/img/code.png"/>
+                     </div>
+                      <img src="http://118.89.161.150:3000/public/files/2-16031Q55436222.jpg"/>
+                      <p>这是一个佰草集宣传的H5</p>
+                   </div>
                   <div>
-                      <div></div>
-                      <div></div>
-                      <div></div>
-                      <div></div>
-                      <div></div>
-                      <div></div>
+                    <img src="http://118.89.161.150:3000/public/files/2-16031Q55436222.jpg"/>
+                  </div>
+                  <div>
+                    <img src="http://118.89.161.150:3000/public/files/2-16031Q55436222.jpg"/>
                   </div>
                 </div>
+              <div>
+                <div>
+                  <img src="http://118.89.161.150:3000/public/files/2-16031Q55436222.jpg"/>
+                </div>
+                <div>
+                  <img src="http://118.89.161.150:3000/public/files/2-16031Q55436222.jpg"/>
+                </div>
+                <div>
+                  <img src="http://118.89.161.150:3000/public/files/2-16031Q55436222.jpg"/>
+                </div>
               </div>
+              <div>
+                <div>
+                  <img src="http://118.89.161.150:3000/public/files/2-16031Q55436222.jpg"/>
+                </div>
+                <div>
+                  <img src="http://118.89.161.150:3000/public/files/2-16031Q55436222.jpg"/>
+                </div>
+                <div>
+                  <img src="http://118.89.161.150:3000/public/files/2-16031Q55436222.jpg"/>
+                </div>
+              </div>
+            <div>
+              <div>
+                <img src="http://118.89.161.150:3000/public/files/2-16031Q55436222.jpg"/>
+              </div>
+              <div>
+                <img src="http://118.89.161.150:3000/public/files/2-16031Q55436222.jpg"/>
+              </div>
+              <div>
+                <img src="http://118.89.161.150:3000/public/files/2-16031Q55436222.jpg"/>
+              </div>
+            </div>
+          </div>
       </div>
   </div>
 </template>
 
 <script>
-  export default {
-    name: 'MyProduction',
-    data () {
-      return {}
+export default {
+  name: 'MyProduction',
+  data () {
+    return {}
+  },
+  methods: {
+    showCode (event) {
+       console.log(event)
     }
   }
+}
 </script>
 
 <style lang="less" scoped>
@@ -31,56 +74,42 @@
   .productionList{
     display: flex;
     flex-wrap:wrap;
-    height:600px;
-    padding-top:200px;
-    padding-left:300px;
-        .box-3d{
-          width: 170px;
-          height: 170px;
-          perspective: 1000px;
-          >div{
-            width: 170px;
-            height: 170px;
-            position: relative;
-            transform-origin: 50%;
-            transition: transform .5s linear;
-            transform-style: preserve-3d;
-            transform: translateZ(300px) rotateY(360deg) rotateX(370deg);
-            >div{
-              width: 100%;
-              height: 100%;
-              background-color: #efeff2;
-              position: absolute;
-              left: 0;
-              top: 0;
-            }
-            >div:nth-child(1){
-              transform: translateZ(84px);
-              background:yellow;
-            }
-            >div:nth-child(2){
-              background:blue;
-              transform: rotateY(90deg) translateZ(84px);
-            }
-            >div:nth-child(3){
-              background:green;
-              transform: rotateY(-90deg) translateZ(84px);
-            }
-            >div:nth-child(4){
-              background:red;
-              transform: rotateX(-90deg) translateZ(84px);
-            }
-            >div:nth-child(5){
-              background:#000;
-              transform: rotateX(90deg) translateZ(84px);
-            }
-            >div:nth-child(6){
-              background:gray;
-              transform: translateZ(-84px);
-            }
-          }
-
+    >div{
+      flex:1;
+      margin:20px;
+      >div{
+        width:100%;
+        height:300px;
+        border: 1px solid #d5e0dd;
+        background: #fff;
+        box-shadow: 0 0 7px #cae7df;
+        margin-bottom:20px;
+        padding:20px;
+        position:relative;
+        >img{
+          width:100%;
+          height:230px;
         }
+        p{
+          margin-top:10px;
+          color:#999;
+          text-align: center;
+          font-size:14px;
+        }
+        >div{
+          position:absolute;
+          background:rgba(0,0,0,0.5);
+          width:100%;
+          height:100%;
+          top:0px;
+          left:0px;
+          padding:40px;
+          >img{
+            width:100%;
+            height:100%;
+          }
+        }
+      }
+    }
   }
 </style>
-
