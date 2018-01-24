@@ -91,6 +91,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 export default {
   name: 'Index',
   data () {
@@ -98,13 +99,16 @@ export default {
       msg: '消息'
     }
   },
-  mounted () {
-  },
   created () {
-    this.initData()
+    this.changeHeader(1)
+    this.initDate()
   },
   methods: {
-    async initData () {
+    ...mapActions([
+      'changeHeader'
+    ]),
+    initDate () {
+      console.log('aaaa')
     }
   }
 }
@@ -113,7 +117,6 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="less" scoped>
 @import "../style/common.less";
-
   .index{
     height:100%;
     .container{

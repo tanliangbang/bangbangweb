@@ -1,12 +1,12 @@
 <template>
   <div class="header">
     <div class="container">
-      <p class="my-logo"><router-link to="/">bangbang</router-link></p>
+      <p class="my-logo"><router-link to="/home">bangbang</router-link></p>
       <ul class="nav">
-        <li><router-link to="/"> 首页 </router-link></li>
+        <li><router-link to="/home" > 首页 </router-link></li>
         <li><router-link to="/resContentList">技术文章</router-link></li>
         <li><router-link to="/myProduction"> 作品展示</router-link></li>
-        <li><router-link to="/resContentList"> 程序员社区</router-link></li>
+        <li><router-link to="/community"> 程序员社区</router-link></li>
       </ul>
     </div>
   </div>
@@ -46,6 +46,9 @@ export default {
   color:#fff;
   z-index: 999;
   transition: all 1s ease;
+  .router-link-active{
+    color:@mainColor;
+  }
   .my-logo{
     float:left;
     font-family: 'Open Sans',sans-serif;

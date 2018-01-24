@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import {getReadyRank, getRecommend, getResContentList, getNav} from '../../service/getData'
+import * as api from '../../service/getData'
 import Tool from '../../utils/Tool'
 import List from '../../components/res/List'
 import RightList from '../../components/res/RightList'
@@ -49,15 +49,15 @@ export default {
     async initData () {
       this.type = this.$route.query.type
       if (!this.type || this.type == null) {
-        this.navList = await getNav()
+        this.navList = await api.getNav()
         this.type = this.navList[0].name
       } else if (this.navList === null) {
-        this.navList = await getNav()
+        this.navList = await api.getNav()
       }
-      let obj = await getResContentList(this.type, 0, 10)
+      let obj = await api.getResContentList(this.type, 0, 10)
       this.resContentList = obj.content
-      this.readyRank = await getReadyRank(this.type, 5)
-      this.recommend = await getRecommend(this.type, 5)
+      this.readyRank = await api.getReadyRank(this.type, 5)
+      this.recommend = await api.getRecommend(this.type, 5)
     },
     formatDate (date) {
       return Tool.formatDate1(date)

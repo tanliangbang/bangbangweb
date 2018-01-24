@@ -5,7 +5,11 @@ Vue.use(Router)
 var routers = [
   {
     path: '/',
-    name: 'Index',
+    redirect: {name: 'home'}
+  },
+  {
+    path: '/home',
+    name: 'home',
     component: (resolve) => require(['@/page/Index'], resolve)
   },
   {

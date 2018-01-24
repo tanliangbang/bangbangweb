@@ -1,34 +1,36 @@
 <template>
   <div class="myProduction">
       <div class="container">
-        <div class="productionList">
-                <div>
-                   <div v-for="(item) in resContentList1" :key="item.id"   v-on:mouseenter="showCode($event)" v-on:mouseleave="hideCode($event)">
-                     <div class="hide" >
-                       <img :src="item.content.code"/>
-                     </div>
-                      <img :src="item.content.img"/>
-                      <p>{{item.content.title}}</p>
-                   </div>
+        <div class="production-page">
+          <img src="../../assets/img/proImg.jpg">
+          <div class="productionList">
+            <div>
+              <div v-for="(item) in resContentList1" :key="item.id"   v-on:mouseenter="showCode($event)" v-on:mouseleave="hideCode($event)">
+                <div class="hide" >
+                  <img :src="item.content.code"/>
                 </div>
-              <div>
-                <div v-for="(item) in resContentList2" :key="item.id"   v-on:mouseenter="showCode($event)" v-on:mouseleave="hideCode($event)">
-                  <div class="hide" >
-                    <img :src="item.content.code"/>
-                  </div>
-                  <img :src="item.content.img"/>
-                  <p>{{item.content.title}}</p>
-                </div>
+                <img :src="item.content.img"/>
+                <p>{{item.content.title}}</p>
               </div>
-              <div>
-                <div v-for="(item) in resContentList3" :key="item.id"   v-on:mouseenter="showCode($event)" v-on:mouseleave="hideCode($event)">
-                  <div class="hide" >
-                    <img :src="item.content.code"/>
-                  </div>
-                  <img :src="item.content.img"/>
-                  <p>{{item.content.title}}</p>
+            </div>
+            <div>
+              <div v-for="(item) in resContentList2" :key="item.id"   v-on:mouseenter="showCode($event)" v-on:mouseleave="hideCode($event)">
+                <div class="hide" >
+                  <img :src="item.content.code"/>
                 </div>
+                <img :src="item.content.img"/>
+                <p>{{item.content.title}}</p>
               </div>
+            </div>
+            <div>
+              <div v-for="(item) in resContentList3" :key="item.id"   v-on:mouseenter="showCode($event)" v-on:mouseleave="hideCode($event)">
+                <div class="hide" >
+                  <img :src="item.content.code"/>
+                </div>
+                <img :src="item.content.img"/>
+                <p>{{item.content.title}}</p>
+              </div>
+            </div>
             <div>
               <div v-for="(item) in resContentList4" :key="item.id"   v-on:mouseenter="showCode($event)" v-on:mouseleave="hideCode($event)">
                 <div class="hide" >
@@ -39,6 +41,9 @@
               </div>
             </div>
           </div>
+
+        </div>
+
       </div>
   </div>
 </template>
@@ -59,10 +64,10 @@ export default {
     this.initDate()
   },
   methods: {
-    async initDate() {
+    async initDate () {
       let obj = await getResContentList('production', 0, 10)
       this.resContentList = obj.content
-      for (let i = 0; i<this.resContentList.length; i++) {
+      for (let i = 0; i < this.resContentList.length; i++) {
         if (i % 4 === 0) {
           this.resContentList1.push(this.resContentList[i])
         }
@@ -75,7 +80,6 @@ export default {
         if (i % 4 === 3) {
           this.resContentList4.push(this.resContentList[i])
         }
-
       }
     },
     showCode (event) {
@@ -130,6 +134,14 @@ export default {
           }
         }
       }
+    }
+  }
+
+  .production-page{
+    background:#fff;
+    >img{
+      width:100%;
+      height:200px;
     }
   }
 </style>
