@@ -3,51 +3,39 @@
       <div class="container">
         <div class="productionList">
                 <div>
-                   <div  v-on:mouseenter="showCode($event)">
-                     <div class="hide">
-                       <img src="../../assets/img/code.png"/>
+                   <div v-for="(item) in resContentList1" :key="item.id"   v-on:mouseenter="showCode($event)" v-on:mouseleave="hideCode($event)">
+                     <div class="hide" >
+                       <img :src="item.content.code"/>
                      </div>
-                      <img src="http://118.89.161.150:3000/public/files/2-16031Q55436222.jpg"/>
-                      <p>这是一个佰草集宣传的H5</p>
+                      <img :src="item.content.img"/>
+                      <p>{{item.content.title}}</p>
                    </div>
-                  <div>
-                    <img src="http://118.89.161.150:3000/public/files/2-16031Q55436222.jpg"/>
-                  </div>
-                  <div>
-                    <img src="http://118.89.161.150:3000/public/files/2-16031Q55436222.jpg"/>
-                  </div>
                 </div>
               <div>
-                <div>
-                  <img src="http://118.89.161.150:3000/public/files/2-16031Q55436222.jpg"/>
-                </div>
-                <div>
-                  <img src="http://118.89.161.150:3000/public/files/2-16031Q55436222.jpg"/>
-                </div>
-                <div>
-                  <img src="http://118.89.161.150:3000/public/files/2-16031Q55436222.jpg"/>
+                <div v-for="(item) in resContentList2" :key="item.id"   v-on:mouseenter="showCode($event)" v-on:mouseleave="hideCode($event)">
+                  <div class="hide" >
+                    <img :src="item.content.code"/>
+                  </div>
+                  <img :src="item.content.img"/>
+                  <p>{{item.content.title}}</p>
                 </div>
               </div>
               <div>
-                <div>
-                  <img src="http://118.89.161.150:3000/public/files/2-16031Q55436222.jpg"/>
-                </div>
-                <div>
-                  <img src="http://118.89.161.150:3000/public/files/2-16031Q55436222.jpg"/>
-                </div>
-                <div>
-                  <img src="http://118.89.161.150:3000/public/files/2-16031Q55436222.jpg"/>
+                <div v-for="(item) in resContentList3" :key="item.id"   v-on:mouseenter="showCode($event)" v-on:mouseleave="hideCode($event)">
+                  <div class="hide" >
+                    <img :src="item.content.code"/>
+                  </div>
+                  <img :src="item.content.img"/>
+                  <p>{{item.content.title}}</p>
                 </div>
               </div>
             <div>
-              <div>
-                <img src="http://118.89.161.150:3000/public/files/2-16031Q55436222.jpg"/>
-              </div>
-              <div>
-                <img src="http://118.89.161.150:3000/public/files/2-16031Q55436222.jpg"/>
-              </div>
-              <div>
-                <img src="http://118.89.161.150:3000/public/files/2-16031Q55436222.jpg"/>
+              <div v-for="(item) in resContentList4" :key="item.id"   v-on:mouseenter="showCode($event)" v-on:mouseleave="hideCode($event)">
+                <div class="hide" >
+                  <img :src="item.content.code"/>
+                </div>
+                <img :src="item.content.img"/>
+                <p>{{item.content.title}}</p>
               </div>
             </div>
           </div>
@@ -56,14 +44,45 @@
 </template>
 
 <script>
+import {getResContentList} from '../../service/getData'
 export default {
   name: 'MyProduction',
   data () {
-    return {}
+    return {
+      resContentList1: [],
+      resContentList2: [],
+      resContentList3: [],
+      resContentList4: []
+    }
+  },
+  created () {
+    this.initDate()
   },
   methods: {
+    async initDate() {
+      let obj = await getResContentList('production', 0, 10)
+      this.resContentList = obj.content
+      for (let i = 0; i<this.resContentList.length; i++) {
+        if (i % 4 === 0) {
+          this.resContentList1.push(this.resContentList[i])
+        }
+        if (i % 4 === 1) {
+          this.resContentList2.push(this.resContentList[i])
+        }
+        if (i % 4 === 2) {
+          this.resContentList3.push(this.resContentList[i])
+        }
+        if (i % 4 === 3) {
+          this.resContentList4.push(this.resContentList[i])
+        }
+
+      }
+    },
     showCode (event) {
-       console.log(event)
+      event.target.firstChild.style.display = 'block'
+    },
+    hideCode (event) {
+      event.currentTarget.firstChild.style.display = 'none'
     }
   }
 }
@@ -104,6 +123,7 @@ export default {
           top:0px;
           left:0px;
           padding:40px;
+          transition: display 0.3s ease;
           >img{
             width:100%;
             height:100%;

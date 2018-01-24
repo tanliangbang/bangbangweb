@@ -24,8 +24,12 @@ export default {
     Footer
   },
   mounted () {
-    this.minHeight = document.documentElement.clientHeight-120
-  }
+    this.minHeight = document.documentElement.clientHeight - 120
+    const that = this;
+    window.onresize = () => {
+      this.minHeight = document.documentElement.clientHeight - 120
+    }
+  },
 }
 </script>
 
