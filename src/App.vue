@@ -11,7 +11,6 @@
 <script>
 import Header from './components/common/Header'
 import Footer from './components/common/Footer'
-
 export default {
   name: 'App',
   data () {
@@ -21,7 +20,7 @@ export default {
   },
   components: {
     Header,
-    Footer
+    Footer,
   },
   mounted () {
     this.minHeight = document.documentElement.clientHeight - 120
@@ -32,7 +31,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="less">
  html,body{
    margin:0px;
    width:100%;

@@ -43,6 +43,7 @@ export default {
     }
   },
   created () {
+    console.log(this)
     this.initData()
   },
   methods: {
