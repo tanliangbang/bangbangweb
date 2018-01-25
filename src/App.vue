@@ -20,7 +20,7 @@ export default {
   },
   components: {
     Header,
-    Footer,
+    Footer
   },
   mounted () {
     this.minHeight = document.documentElement.clientHeight - 120

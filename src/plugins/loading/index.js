@@ -30,7 +30,7 @@ export default {
       })
     }
     // 定义关闭loading方法
-    $loading.end = () => {
+    $loading.hide = () => {
       return new Promise((resolve) => {
         if (!loading || !loading.isShow) {
           resolve()

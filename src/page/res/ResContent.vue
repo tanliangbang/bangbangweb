@@ -15,7 +15,7 @@
                   <span>来源:&nbsp;{{resContent.content.from}}</span>&nbsp;&nbsp;<span>日期&nbsp;:&nbsp;{{formatDate(resContent.createTime)}}</span>&nbsp;&nbsp;<span>&nbsp;阅读:&nbsp;{{resContent.readyNum}}</span>
                 </div>
               </div>
-              <div  v-html="resContent.content.content"></div>
+              <div class="content"  v-html="resContent.content.content"></div>
             </div>
           </div>
         </div>
@@ -47,6 +47,7 @@ export default {
     }
   },
   created () {
+    this.$loading()
     this.initData()
   },
   methods: {
@@ -54,6 +55,7 @@ export default {
       this.type = this.$route.query.type
       let obj = await getResContentById(this.$route.query.id, this.type)
       this.resContent = obj[0]
+      this.$loading.hide()
       this.readyRank = await getReadyRank(this.type, 5)
       this.recommend = await getRecommend(this.type, 5)
     },
@@ -104,5 +106,11 @@ export default {
     background:#fff;
     margin-top:20px;
     padding-top:20px;
+    .content{
+      overflow-x:hidden;
+      img{
+        width:100% !important;
+      }
+    }
   }
 </style>

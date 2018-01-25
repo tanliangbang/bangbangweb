@@ -43,7 +43,7 @@ export default {
     }
   },
   created () {
-    console.log(this)
+    this.$loading()
     this.initData()
   },
   methods: {
@@ -57,6 +57,7 @@ export default {
       }
       let obj = await api.getResContentList(this.type, 0, 10)
       this.resContentList = obj.content
+      this.$loading.hide()
       this.readyRank = await api.getReadyRank(this.type, 5)
       this.recommend = await api.getRecommend(this.type, 5)
     },
