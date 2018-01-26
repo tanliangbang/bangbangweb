@@ -48,7 +48,7 @@ module.exports = {
 
   build: {
     // Template for index.js.html
-    index: path.resolve(__dirname, '../bangbangweb/index.js.html'),
+    index: path.resolve(__dirname, '../bangbangweb/index.html'),
 
     // Paths
     assetsRoot: path.resolve(__dirname, '../bangbangweb'),

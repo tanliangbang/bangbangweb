@@ -5,6 +5,8 @@ import App from './App'
 import router from './router'
 import store from './store'
 import VueLoading from './plugins/loading/index'
+import LoginAndRegist from './components/loginAndregist/index'
+
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
@@ -16,3 +18,4 @@ new Vue({
   template: '<App/>'
 })
 Vue.use(VueLoading)
+Vue.use(LoginAndRegist)

@@ -8,6 +8,9 @@
         <li><router-link to="/myProduction"> 作品展示</router-link></li>
         <li><router-link to="/community"> 程序员社区</router-link></li>
       </ul>
+      <div class="loginOrRegist">
+        <a v-on:click="showLoginOrRegsit('login')">登入</a>/<a v-on:click="showLoginOrRegsit('regist')">注册</a>
+      </div>
     </div>
   </div>
 </template>
@@ -28,7 +31,10 @@ export default {
   },
   methods: {
     async initData () {
-      this.navList = await getNav()
+      this.navList = await getNav('myArticle')
+    },
+    showLoginOrRegsit (str) {
+      this.$showLoginOrRegist(str)
     }
   }
 }
@@ -48,6 +54,17 @@ export default {
   transition: all 1s ease;
   .router-link-active{
     color:@mainColor;
+  }
+  .loginOrRegist{
+    float:right;
+    margin-top:18px;
+    a{
+      color:#fff;
+      cursor: pointer;
+    }
+    a:hover{
+      color:@mainColor;
+    }
   }
   .my-logo{
     float:left;

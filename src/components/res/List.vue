@@ -48,6 +48,9 @@ export default {
       background:#fff;
     >div:nth-child(1){
       padding:5px 20px;
+      >img{
+        width:100%;
+      }
     }
     .mainList{
       background:#fff;

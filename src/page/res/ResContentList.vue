@@ -10,12 +10,14 @@
       </div>
     </div>
     <div class="container">
-      <div class="main">
-        <List v-if="resContentList!==null" v-bind:resContentList="resContentList" v-bind:type="type"></List>
-      </div>
-      <div class="right">
-        <RightList  v-bind:rightList="readyRank" v-bind:type="type" v-bind:title="'阅读排行'"/>
-        <RightList  v-bind:rightList="recommend" v-bind:type="type" v-bind:title="'推荐排行'"/>
+      <div class="main-right">
+          <div class="main">
+            <List v-if="resContentList!==null" v-bind:resContentList="resContentList" v-bind:type="type"></List>
+          </div>
+          <div class="right">
+            <RightList  v-bind:rightList="readyRank" v-bind:type="type" v-bind:title="'阅读排行'"/>
+            <RightList  v-bind:rightList="recommend" v-bind:type="type" v-bind:title="'推荐排行'"/>
+          </div>
       </div>
     </div>
   </div>
@@ -50,10 +52,10 @@ export default {
     async initData () {
       this.type = this.$route.query.type
       if (!this.type || this.type == null) {
-        this.navList = await api.getNav()
+        this.navList = await api.getNav('myArticle')
         this.type = this.navList[0].name
       } else if (this.navList === null) {
-        this.navList = await api.getNav()
+        this.navList = await api.getNav('myArticle')
       }
       let obj = await api.getResContentList(this.type, 0, 10)
       this.resContentList = obj.content
@@ -79,26 +81,6 @@ export default {
   @import "../../style/common.less";
   .resContentList{
     width:100%;
-    .main{
-      width:100%;
-      position: relative;
-      float: left;
-      >div{
-        margin-right:360px;
-        >div:nth-child(1){
-          padding:5px 20px;
-          background:#fff;
-        }
-      }
-    }
-
-    .right{
-      float:left;
-      margin-left: -340px;
-      right:0px;
-      background:#fff;
-      width:340px;
-    }
   }
   .mainList{
      background:#fff;
