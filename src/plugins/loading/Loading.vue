@@ -55,10 +55,10 @@ export default {
   }
 
   .box {
-    width: 30px;
-    height: 30px;
-    margin: 0 10px;
-    border-radius: 0%;
+    width: 10px;
+    height: 10px;
+    margin: 0 5px;
+    border-radius: 50%;
     -webkit-transform: translateY(0) rotate(0deg);
     transform: translateY(0) rotate(0deg);
     -webkit-animation: change 1s infinite alternate;
@@ -125,29 +125,11 @@ export default {
     animation-delay: 1s;
   }
 
-  @-webkit-keyframes change {
-    0% {
-      -webkit-transform: translateY(0px) rotate(0deg);
-      transform: translateY(0px) rotate(0deg);
-      border-radius: 0%;
-    }
-    50% {
-      -webkit-transform: translateY(150px) rotate(180deg);
-      transform: translateY(150px) rotate(180deg);
-      border-radius: 50%;
-    }
-    100% {
-      -webkit-transform: translateY(0px) rotate(360deg);
-      transform: translateY(0px) rotate(360deg);
-      border-radius: 0%;
-    }
-  }
-
   @keyframes change {
     0% {
       -webkit-transform: translateY(0px) rotate(0deg);
       transform: translateY(0px) rotate(0deg);
-      border-radius: 0%;
+      border-radius: 50%;
     }
     50% {
       -webkit-transform: translateY(150px) rotate(180deg);
@@ -157,7 +139,7 @@ export default {
     100% {
       -webkit-transform: translateY(0px) rotate(360deg);
       transform: translateY(0px) rotate(360deg);
-      border-radius: 0%;
+      border-radius: 50%;
     }
   }
 </style>

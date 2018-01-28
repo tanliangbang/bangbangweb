@@ -5,10 +5,11 @@ import App from './App'
 import router from './router'
 import store from './store'
 import VueLoading from './plugins/loading/index'
+import Prompt from './plugins/prompt/index'
 import LoginAndRegist from './components/loginAndregist/index'
-
 Vue.config.productionTip = false
-
+Vue.use(VueLoading)
+Vue.use(Prompt)
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
@@ -17,5 +18,4 @@ new Vue({
   components: { App },
   template: '<App/>'
 })
-Vue.use(VueLoading)
-Vue.use(LoginAndRegist)
+Vue.use(LoginAndRegist, store)

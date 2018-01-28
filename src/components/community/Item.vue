@@ -1,7 +1,8 @@
 <template>
   <div class="item">
     <div class="top" v-if="itemData.from_user">
-      <img class="avatar"  :src="itemData.from_user.userAavar" >
+      <img v-if="itemData.from_user.userAavar !== null" class="avatar"  :src="itemData.from_user.userAavar" />
+      <img v-if="itemData.from_user.userAavar === null" class="avatar" src="../../assets/img/user.jpg">
       <span >{{itemData.from_user.userName}}</span>
     </div>
     <p class="title" >
@@ -9,7 +10,7 @@
     </p>
     <p class="summary">{{itemData.content.breif}}</p>
     <div class="bottom" >评论:1222&nbsp;&nbsp;浏览:{{itemData.readyNum}}&nbsp;&nbsp;喜欢:1555</div>
-    <img class="summaryImg" src="http://118.89.161.150:3000/public/files/WebStorm10.0.2.jpg">
+    <img class="summaryImg" v-if="itemData.content.titleImg!==''&&itemData.content.titleImg!==null" :src="itemData.content.titleImg">
   </div>
 </template>
 
@@ -37,7 +38,7 @@ export default {
     background:#fff;
     position:relative;
     margin:0px;
-    border-bottom: 1px solid @borderColor;
+    border-bottom: 1px dashed @borderColor;
     padding:10px;
     .avatar{
       width:20px;

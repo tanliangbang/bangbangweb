@@ -2,17 +2,17 @@ import * as types from '../mutation-types'
 // initial state
 // shape: [{ id, quantity }]
 const state = {
-  currIndex: 1
+  userInfo: null
 }
 
 const mutations = {
-  [types.CHANGE_HEADER] (state, currIndex) {
-    state.currIndex = currIndex
+  [types.SET_USERINFO] (state, userInfo) {
+    state.userInfo = userInfo
   }
 }
 
 const actions = {
-  changeHeader: ({ commit }, currIndex) => commit(types.CHANGE_HEADER, currIndex)
+  setUserInfo: ({ commit }, userInfo) => commit(types.SET_USERINFO, userInfo)
 }
 
 const getters = {

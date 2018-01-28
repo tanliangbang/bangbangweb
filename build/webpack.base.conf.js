@@ -53,7 +53,7 @@ module.exports = {
       },
       {
         test: /\.less/,
-        loader: 'less-loader',
+        loader: 'index.less-loader',
         options: {
           modules: false,
         }

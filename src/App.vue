@@ -11,6 +11,8 @@
 <script>
 import Header from './components/common/Header'
 import Footer from './components/common/Footer'
+import {mapActions} from 'vuex'
+import Tool from './utils/Tool'
 export default {
   name: 'App',
   data () {
@@ -23,10 +25,19 @@ export default {
     Footer
   },
   mounted () {
+    let userInfo = Tool.localItem('userInfo')
+    if (userInfo && userInfo !== null) {
+      this.setUserInfo(JSON.parse(userInfo))
+    }
     this.minHeight = document.documentElement.clientHeight - 120
     window.onresize = () => {
       this.minHeight = document.documentElement.clientHeight - 120
     }
+  },
+  methods: {
+    ...mapActions([
+      'setUserInfo'
+    ])
   }
 }
 </script>

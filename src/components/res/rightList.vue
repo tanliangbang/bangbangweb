@@ -2,7 +2,9 @@
   <div class="right-list1">
     <div>{{title}}</div>
     <div v-if="rightList!==null" v-for="(item) in rightList" :key="item.id" class="right-list1-item">
-      <img :src="item.content.titleImg">
+      <img v-if="item.content.titleImg" :src="item.content.titleImg">
+      <img v-if="!item.content.titleImg" src="../../assets/img/user.jpg">
+
       <p><router-link :to="{ path: '/resContent',query: { id: item.id, type: type }}">{{item.content.title}}</router-link></p>
       <div>{{item.content.from}} 发表月:{{formatDate(item.createTime)}}</div>
     </div>

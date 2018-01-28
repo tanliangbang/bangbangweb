@@ -39,3 +39,32 @@ export const getResContentById = (id, name) => http.get('/api/res/getResContentB
   id: id,
   name: name
 })
+
+/**
+ * 根据用户名密码登入
+ */
+export const login = (username, password) => http.post('/api/users/login', {
+  username: username,
+  password: password
+})
+
+/**
+ * 用户注册
+ */
+export const regist = (username, password) => http.post('/api/users/register', {
+  username: username,
+  password: password
+})
+
+/**
+ * 用户发表文章
+ */
+export const publishArticle = (content, type) => http.post('/api/res/addResContent', {
+  onLine: 1,
+  content: content,
+  name: type
+})
+/**
+ * 根据用户名密码登入
+ */
+export const uploadImg = (param, config) => http.upload('/api/upload/uploadImg', param, config)

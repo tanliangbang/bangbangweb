@@ -1,0 +1,90 @@
+<template>
+  <div class="userCenter">
+    <div class="container">
+       <div>
+         <div class="utop">
+             <div class="fl">
+               <img v-if="userInfo.userAavar" class="userAavar" :src="userInfo.userAavar" >
+               <img v-if="!userInfo.userAavar" class="userAavar" src="../../assets/img/user.jpg" >
+             </div>
+             <div class="fl simpleInfo" >
+               <div >{{userInfo.username}}</div>
+               <div>
+                 <span >{{userInfo.job?userInfo.job:'无'}}</span><span class="line" >|</span>
+                 <span >{{userInfo.address?userInfo.address:'无'}}</span><span class="line" >|</span>
+                 <span v-if="userInfo.sex">{{userInfo.sex==='1'?'男':'女'}}</span>
+                 <span v-if="!userInfo.sex">无</span>
+               </div>
+               <div>{{userInfo.userBreif?userInfo.userBreif:'无'}}</div>
+             </div>
+             <div class="fr changeInfoBtn">修改信息</div>
+         </div>
+
+         <div class="main-right">
+           <div class="main">
+             <div class="listContent">
+               <div class="nav">
+                   <div class="active">我的文章</div>
+                   <div>我的评论</div>
+                   <div>我的关注</div>
+                   <div>我的收藏</div>
+               </div>
+               <div class="content">
+                 <Item v-for="(item) in articleList" v-bind:type="type" v-bind:itemData="item" :key="item.id" />
+               </div>
+             </div>
+           </div>
+           <div class="right">
+             <img src="../../assets/img/right.jpg">
+             <img src="../../assets/img/right.jpg">
+             <img src="../../assets/img/right.jpg">
+           </div>
+         </div>
+       </div>
+
+    </div>
+  </div>
+</template>
+
+<script>
+import * as api from '../../service/getData'
+import Item from '../../components/community/Item'
+export default {
+  name: 'userCenter',
+  components: {
+    Item
+  },
+  data () {
+    return {
+      userInfo: {},
+      articleList: null,
+      type: 'javacommunity'
+    }
+  },
+  created () {
+    this.userInfo = this.$store.state.common.userInfo
+    if (!this.userInfo || this.userInfo === null) {
+      this.$router.push('/home')
+    }
+    this.initDate()
+  },
+  methods: {
+    async initDate () {
+      let obj = await api.getResContentList('javacommunity', 0, 10)
+      this.articleList = obj.content
+    }
+  }
+}
+</script>
+
+<style lang="less" scoped>
+  @import "./index";
+ .right{
+   padding:20px;
+   img{
+     width:100%;
+     height:200px;
+     margin-bottom:20px;
+   }
+ }
+</style>

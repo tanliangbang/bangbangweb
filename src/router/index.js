@@ -31,7 +31,18 @@ var routers = [
     path: '/community',
     name: 'community',
     component: (resolve) => require(['@/page/community/Community'], resolve)
+  },
+  {
+    path: '/publishArticle',
+    name: 'publishArticle',
+    component: (resolve) => require(['@/page/community/PublishArticle'], resolve)
+  },
+  {
+    path: '/userCenter',
+    name: 'userCenter',
+    component: (resolve) => require(['@/page/user/UserCenter'], resolve)
   }
+
 ]
 
 export default new Router({

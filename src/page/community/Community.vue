@@ -8,7 +8,7 @@
           <div class="navList">
             <ul >
               <li v-for="(item) in navList" v-on:click="toCommunity(item.name)" :key="item.id" :class="item.name === type?'active' : ''">{{item.cname}}</li>
-              <router-link to="/" class="publish-btn">我要发文</router-link>
+              <a v-on:click="publish" class="publish-btn">我要发文</a>
             </ul>
           </div>
 
@@ -61,8 +61,6 @@ export default {
       if (!this.type || this.type == null) {
         this.type = this.navList[0].name
       }
-      console.log(this.type)
-
       let obj = await api.getResContentList(this.type, 0, 10)
       this.communityList = obj.content
       this.$loading.hide()
@@ -77,6 +75,14 @@ export default {
     },
     fetchData () {
       this.initData()
+    },
+    publish () {
+      let userInfo = this.$store.state.common.userInfo
+      if (userInfo && userInfo !== null) {
+        this.$router.push('publishArticle?type=' + this.type)
+      } else {
+        this.$loginOrRegist.showLogin()
+      }
     }
   },
   watch: {
@@ -139,6 +145,7 @@ export default {
   .listContent{
     margin-right:360px;
     background:#fff;
+    padding:20px;
     >div{
       >div:last-child{
         border-bottom:none;

@@ -55,7 +55,6 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
 import Tool from '../utils/Tool'
 import * as api from '../service/getData'
 import ListItem from '../components/production/ListItem'
@@ -73,14 +72,10 @@ export default {
     }
   },
   created () {
-    this.changeHeader(1)
     this.$loading()
     this.initDate()
   },
   methods: {
-    ...mapActions([
-      'changeHeader'
-    ]),
     async initDate () {
       let obj1 = await api.getResContentList(this.type, 0, 5)
       this.goodArticle = obj1.content

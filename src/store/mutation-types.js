@@ -1,1 +1,1 @@
-export const CHANGE_HEADER = 'CHANGE_HEADER'
+export const SET_USERINFO = 'SET_USERINFO'

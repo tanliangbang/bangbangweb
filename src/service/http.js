@@ -1,7 +1,6 @@
 import axios from 'axios'
-import qs from 'qs'
 import NProgress from 'nprogress'
-
+import qs from 'qs'
 axios.interceptors.request.use(config => {
   NProgress.start()
   return config
@@ -26,8 +25,8 @@ function checkStatus (response) {
 }
 
 function checkCode (res) {
-  if (res.data.code !== 200) {
-    console.log(res.data.errorMsg)
+  if (res.data.statusCode !== 200) {
+    return res.data
   }
   return res.data.data
 }
@@ -54,6 +53,16 @@ export default {
       headers: {
         'X-Requested-With': 'XMLHttpRequest'
       }
+    }).then(checkStatus).then(checkCode)
+  },
+  upload (url, data, config) {
+    let headers = config
+    return axios({
+      method: 'post',
+      url,
+      data: data,
+      timeout: 30000,
+      headers: headers
     }).then(checkStatus).then(checkCode)
   }
 }
