@@ -1,18 +1,19 @@
 <template>
-  <div class="pagination">
+  <div :class="pagination.total>0?'pagination':'none'" >
       <ul>
-        <li ><a>上一页</a></li>
-        <li v-on:click="toPage(1)" v-if="pagination.current>4"><a :class="pagination.current===1?'active':''">1</a></li>
-        <li v-if="pagination.current>4" class="ellipsis"></li>
+        <li ><a :class="pagination.current===1?'disabled':''" v-on:click="prePage">上一页</a></li>
+        {{dealTotalPage()}}
+        <li v-on:click="toPage(1)" v-if="pagination.current>4&&pagination.total>6"><a :class="pagination.current===1?'active':''">1</a></li>
+        <li v-if="pagination.current>4&&pagination.total>6" class="ellipsis"></li>
         <li v-for="(item) in [1,2,3,4,5]" :key="item.id">
-          <a v-if="pagination.total<=5&&item<=pagination.total"  v-on:click="toPage(item)" :class="pagination.current===item?'active':''" >{{item}}</a>
-          <a v-if="pagination.total>5&&pagination.current<5"  v-on:click="toPage(item)" :class="pagination.current===item?'active':''" >{{item}}</a>
-          <a v-if="pagination.total>5&&pagination.current>=5&&pagination.current<pagination.total-3" v-on:click="toPage(pagination.current+item-3)" :class="pagination.current===pagination.current+item-3?'active':''" >{{pagination.current+item-3}}</a>
-          <a v-if="pagination.total>5&&pagination.current>=pagination.total-3" v-on:click="toPage(pagination.total-6+item)" :class="pagination.current===pagination.total-6+item?'active':''" >{{pagination.total-6+item}}</a>
+          <a v-if="pagination.total<=7&&item<=pagination.total"  v-on:click="toPage(item)" :class="pagination.current===item?'active':''" >{{item}}</a>
+          <a v-if="pagination.total>7&&pagination.current<5"  v-on:click="toPage(item)" :class="pagination.current===item?'active':''" >{{item}}</a>
+          <a v-if="pagination.total>7&&pagination.current>=5&&pagination.current<pagination.total-3" v-on:click="toPage(pagination.current+item-3)" :class="pagination.current===pagination.current+item-3?'active':''" >{{pagination.current+item-3}}</a>
+          <a v-if="pagination.total>7&&pagination.current>=pagination.total-3" v-on:click="toPage(pagination.total-6+item)" :class="pagination.current===pagination.total-6+item?'active':''" >{{pagination.total-6+item}}</a>
         </li>
-        <li v-if="pagination.total>5&&pagination.current < (pagination.total-3)" class="ellipsis"></li>
-        <li v-on:click="toPage(pagination.total)" v-if="pagination.total>5"><a>{{pagination.total}}</a></li>
-        <li> <a>下一页</a></li>
+        <li v-if="pagination.total>7&&pagination.current < (pagination.total-3)" class="ellipsis"></li>
+        <li v-on:click="toPage(pagination.total)"  v-if="pagination.total>=6"><a :class="pagination.current===pagination.total?'active':''">{{pagination.total}}</a></li>
+        <li> <a :class="pagination.current===pagination.total?'disabled':''" v-on:click="nextPage">下一页</a></li>
       </ul>
   </div>
 </template>
@@ -26,19 +27,31 @@ export default {
     }
   },
   created () {
-    if (this.pagination.onShowSizeChange && this.pagination.onShowSizeChange !== null) {
-      this.pagination.onShowSizeChange(1)
-    }
-    if (this.pagination.totalSize > 0) {
-      let totalSize = this.pagination.totalSize
-      let pageSize = this.pagination.pageSize
-      this.pagination.total = totalSize % pageSize === 0 ? totalSize / pageSize : parseInt(totalSize / pageSize) + 1
-    }
   },
   methods: {
     toPage (num) {
       this.pagination.onShowSizeChange(num)
       this.pagination.current = num
+    },
+    dealTotalPage () {
+      if (this.pagination.totalSize > 0) {
+        let totalSize = this.pagination.totalSize
+        let pageSize = this.pagination.pageSize
+        let total = totalSize % pageSize === 0 ? totalSize / pageSize : parseInt(totalSize / pageSize) + 1
+        this.pagination.total = total
+      }
+    },
+    prePage () {
+      if (this.pagination.current <= 1) {
+        return false
+      }
+      this.toPage(this.pagination.current - 1)
+    },
+    nextPage () {
+      if (this.pagination.total === this.pagination.current) {
+        return false
+      }
+      this.toPage(this.pagination.current + 1)
     }
   },
   update () {
@@ -77,7 +90,13 @@ export default {
         top:-5px;
         position:absolute;
       }
-
+      .disabled{
+          cursor: not-allowed;
+      }
+      .disabled:hover{
+          background:#fff;
+          color:@mainColor;
+      }
       li{
         line-height: 36px;
         background-image: none;
@@ -102,5 +121,8 @@ export default {
        }
       }
     }
+  }
+  .none{
+    display:none;
   }
 </style>

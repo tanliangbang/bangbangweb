@@ -47,7 +47,7 @@ export default {
       navList: null,
       pagination: {
         current: 1,
-        pageSize: 2,
+        pageSize: 5,
         total: 0,
         totalSize: 0,
         onShowSizeChange: this.getCurrDate,
@@ -64,6 +64,8 @@ export default {
       let start = (currpage - 1) * this.pagination.pageSize
       let obj = await api.getResContentList(this.type, start, this.pagination.pageSize)
       this.resContentList = obj.content
+      this.pagination.current = currpage
+      this.pagination.totalSize = obj.pageTotal
     },
     async initData () {
       this.type = this.$route.query.type
@@ -73,9 +75,7 @@ export default {
       } else if (this.navList === null) {
         this.navList = await api.getNav('myArticle')
       }
-      let obj = await api.getResContentList(this.type, 0, this.pagination.pageSize)
-      this.resContentList = obj.content
-      this.pagination.totalSize = obj.pageTotal
+      await this.getCurrDate(1)
       this.$loading.hide()
       this.readyRank = await api.getReadyRank(this.type, 5)
       this.recommend = await api.getRecommend(this.type, 5)

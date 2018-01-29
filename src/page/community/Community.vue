@@ -17,6 +17,7 @@
             <div class="listContent">
                 <div>
                   <Item v-for="(item) in communityList" v-bind:type="type" v-bind:itemData="item" :key="item.id" />
+                  <Pagination v-bind:pagination = "pagination"/>
                 </div>
             </div>
           </div>
@@ -34,12 +35,14 @@ import Tool from '../../utils/Tool'
 import * as api from '../../service/getData'
 import RightList from '../../components/res/RightList'
 import Item from '../../components/community/Item'
+import Pagination from '../../plugins/pagination/Pagination'
 
 export default {
   name: 'community',
   components: {
     RightList,
-    Item
+    Item,
+    Pagination
   },
   data () {
     return {
@@ -47,7 +50,15 @@ export default {
       recommend: null,
       navList: null,
       communityList: null,
-      type: null
+      type: null,
+      pagination: {
+        current: 1,
+        pageSize: 10,
+        total: 0,
+        totalSize: 0,
+        onShowSizeChange: this.getCurrDate,
+        onChange: null
+      }
     }
   },
   created () {
@@ -55,14 +66,20 @@ export default {
     this.$loading()
   },
   methods: {
+    async getCurrDate (currpage) {
+      let start = (currpage - 1) * this.pagination.pageSize
+      let obj = await api.getResContentList(this.type, start, this.pagination.pageSize)
+      this.communityList = obj.content
+      this.pagination.current = currpage
+      this.pagination.totalSize = obj.pageTotal
+    },
     async initData () {
       this.navList = await api.getNav('community')
       this.type = this.$route.query.type
       if (!this.type || this.type == null) {
         this.type = this.navList[0].name
       }
-      let obj = await api.getResContentList(this.type, 0, 10)
-      this.communityList = obj.content
+      await this.getCurrDate(1)
       this.$loading.hide()
       this.readyRank = await api.getReadyRank(this.type, 5)
       this.recommend = await api.getRecommend(this.type, 5)
