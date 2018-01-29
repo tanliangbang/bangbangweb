@@ -24,6 +24,7 @@ export default {
         document.querySelector(pluginOptions.container || 'body').appendChild(temp.$el)
         setTimeout(function () {
           document.querySelector(pluginOptions.container || 'body').removeChild(temp.$el)
+          temp = null
         }, 2000)
       }
     }

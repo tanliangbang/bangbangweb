@@ -3,7 +3,7 @@
      <div class="mask"></div>
     <div class="loginAndRegist">
       <div class="login">
-         <button class="close" v-on:click="closeFrame">X</button>
+         <button class="closeFrame" v-on:click="closeFrame">X</button>
         <div class="title">
           <span v-on:click="loginOrRegist('loginAndregist')" :class="isLogin?'active':''">登入</span>
           <span v-on:click="loginOrRegist('regist')" :class="isLogin?'':'active'">注册</span>

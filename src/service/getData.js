@@ -64,7 +64,13 @@ export const publishArticle = (content, type) => http.post('/api/res/addResConte
   content: content,
   name: type
 })
+
 /**
- * 根据用户名密码登入
+ * 修改用户信息
+ */
+export const changeUserInfo = (param) => http.post('/api/users/changeUserInfo', param)
+
+/**
+ * 上传图片
  */
 export const uploadImg = (param, config) => http.upload('/api/upload/uploadImg', param, config)

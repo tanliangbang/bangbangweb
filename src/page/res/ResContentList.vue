@@ -13,6 +13,7 @@
       <div class="main-right">
           <div class="main">
             <List v-if="resContentList!==null" v-bind:resContentList="resContentList" v-bind:type="type"></List>
+            <Pagination v-bind:pagination = "pagination"/>
           </div>
           <div class="right">
             <RightList  v-bind:rightList="readyRank" v-bind:type="type" v-bind:title="'阅读排行'"/>
@@ -28,12 +29,14 @@ import * as api from '../../service/getData'
 import Tool from '../../utils/Tool'
 import List from '../../components/res/List'
 import RightList from '../../components/res/RightList'
+import Pagination from '../../plugins/pagination/Pagination'
 
 export default {
   name: 'ResContentList',
   components: {
     List,
-    RightList
+    RightList,
+    Pagination
   },
   data () {
     return {
@@ -41,7 +44,15 @@ export default {
       recommend: null,
       resContentList: null,
       type: null,
-      navList: null
+      navList: null,
+      pagination: {
+        current: 1,
+        pageSize: 2,
+        total: 0,
+        totalSize: 0,
+        onShowSizeChange: this.getCurrDate,
+        onChange: null
+      }
     }
   },
   created () {
@@ -49,6 +60,11 @@ export default {
     this.initData()
   },
   methods: {
+    async getCurrDate (currpage) {
+      let start = (currpage - 1) * this.pagination.pageSize
+      let obj = await api.getResContentList(this.type, start, this.pagination.pageSize)
+      this.resContentList = obj.content
+    },
     async initData () {
       this.type = this.$route.query.type
       if (!this.type || this.type == null) {
@@ -57,8 +73,9 @@ export default {
       } else if (this.navList === null) {
         this.navList = await api.getNav('myArticle')
       }
-      let obj = await api.getResContentList(this.type, 0, 10)
+      let obj = await api.getResContentList(this.type, 0, this.pagination.pageSize)
       this.resContentList = obj.content
+      this.pagination.totalSize = obj.pageTotal
       this.$loading.hide()
       this.readyRank = await api.getReadyRank(this.type, 5)
       this.recommend = await api.getRecommend(this.type, 5)

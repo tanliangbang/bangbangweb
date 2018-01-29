@@ -1,23 +1,24 @@
 <template>
   <div class="userCenter">
+    <ChangeUser ref="changeUserInfo"/>
     <div class="container">
        <div>
          <div class="utop">
              <div class="fl">
-               <img v-if="userInfo.userAavar" class="userAavar" :src="userInfo.userAavar" >
-               <img v-if="!userInfo.userAavar" class="userAavar" src="../../assets/img/user.jpg" >
+               <img v-if="$store.state.common.userInfo.userAavar" class="userAavar" :src="$store.state.common.userInfo.userAavar" >
+               <img v-if="!$store.state.common.userInfo.userAavar" class="userAavar" src="../../assets/img/user.jpg" >
              </div>
              <div class="fl simpleInfo" >
-               <div >{{userInfo.username}}</div>
+               <div >{{$store.state.common.userInfo.username}}</div>
                <div>
-                 <span >{{userInfo.job?userInfo.job:'无'}}</span><span class="line" >|</span>
-                 <span >{{userInfo.address?userInfo.address:'无'}}</span><span class="line" >|</span>
-                 <span v-if="userInfo.sex">{{userInfo.sex==='1'?'男':'女'}}</span>
-                 <span v-if="!userInfo.sex">无</span>
+                 <span >{{$store.state.common.userInfo.job?$store.state.common.userInfo.job:'无'}}</span><span class="line" >|</span>
+                 <span >{{$store.state.common.userInfo.address?$store.state.common.userInfo.address:'无'}}</span><span class="line" >|</span>
+                 <span v-if="$store.state.common.userInfo.sex">{{$store.state.common.userInfo.sex==='1'?'男':'女'}}</span>
+                 <span v-if="!$store.state.common.userInfo.sex">无</span>
                </div>
-               <div>{{userInfo.userBreif?userInfo.userBreif:'无'}}</div>
+               <div>{{$store.state.common.userInfo.userBreif?$store.state.common.userInfo.userBreif:'无'}}</div>
              </div>
-             <div class="fr changeInfoBtn">修改信息</div>
+             <div v-on:click="showChangeUser" class="fr changeInfoBtn">修改信息</div>
          </div>
 
          <div class="main-right">
@@ -49,21 +50,22 @@
 <script>
 import * as api from '../../service/getData'
 import Item from '../../components/community/Item'
+import ChangeUser from './ChangeUser'
 export default {
   name: 'userCenter',
   components: {
-    Item
+    Item,
+    ChangeUser
   },
   data () {
     return {
-      userInfo: {},
       articleList: null,
       type: 'javacommunity'
     }
   },
   created () {
-    this.userInfo = this.$store.state.common.userInfo
-    if (!this.userInfo || this.userInfo === null) {
+    let userInfo = this.$store.state.common.userInfo
+    if (!userInfo || userInfo === null) {
       this.$router.push('/home')
     }
     this.initDate()
@@ -72,6 +74,9 @@ export default {
     async initDate () {
       let obj = await api.getResContentList('javacommunity', 0, 10)
       this.articleList = obj.content
+    },
+    showChangeUser () {
+      this.$refs.changeUserInfo.showFrame()
     }
   }
 }
