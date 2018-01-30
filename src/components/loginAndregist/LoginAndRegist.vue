@@ -1,5 +1,5 @@
 <template>
-  <div :class="showLoginAndRegist?'':'hide'">
+  <div :class="showLoginAndRegist?'showAnimation':'hideAnimation'">
      <div class="mask"></div>
     <div class="loginAndRegist">
       <div class="login">

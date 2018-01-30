@@ -1,48 +1,50 @@
 <template>
-  <div class="changeUser" :class="showChangeUser?'':'none'">
+  <div v-if="showChangeUser!==null" :class="showChangeUser?'changeUser showAnimation':'changeUser hideAnimation'">
     <div class="mask"></div>
-    <div class="content">
-      <button class="closeFrame" v-on:click="closeFrame">X</button>
-      <div class="maskCommonTop">
-        <label class="loginTitle">修改资料</label>
-      </div>
-      <div>
-        <div class="avarHeard" v-on:click="selectImg($event)">
-          <img :src="userInfo.userAavar">
+    <div class="changeContent">
+        <div class="content">
+          <button class="closeFrame" v-on:click="closeFrame">X</button>
+          <div class="maskCommonTop">
+            <label class="loginTitle">修改资料</label>
+          </div>
+          <div>
+            <div class="avarHeard" v-on:click="selectImg($event)">
+              <img :src="userInfo.userAavar">
+            </div>
+            <input name="resImg" v-on:change="getImgDate($event)" id="resImg" type="file" class="none" >
+          </div>
+          <div class="nomalInput" >
+            <span>昵称：</span>
+            <input name="nick" v-model="userInfo.nick" type="text">
+          </div>
+          <div class="nomalInput">
+            <span>电话：</span>
+            <input name="phone" v-model="userInfo.phone" type="text" >
+          </div>
+          <div class="nomalInput">
+            <span >职业：</span>
+            <input name="job" v-model="userInfo.job" type="text">
+          </div>
+          <div class="sexSelect" >
+            <span>性别：</span>
+            <div>
+              <span>男:&nbsp; &nbsp;</span>
+              <input v-model="userInfo.sex" value="1" checked="" type="radio">
+              <span>&nbsp; &nbsp; &nbsp; &nbsp; 女:&nbsp; &nbsp;</span>
+              <input v-model="userInfo.sex" value="0" type="radio">
+            </div>
+          </div>
+          <div class="nomalInput">
+            <span>地区：</span>
+            <input name="address" v-model="userInfo.address" type="text">
+          </div>
+          <div class="nomalInput">
+            <span>简介：</span>
+            <textarea name="userBreif" v-model="userInfo.userBreif" placeholder="300字以内" class="selfDesc" type="text" >
+            </textarea>
+          </div>
+          <button type="submit" v-on:click="changeUser" class="change_user">修&nbsp;&nbsp;&nbsp;&nbsp;改</button>
         </div>
-        <input name="resImg" v-on:change="getImgDate($event)" id="resImg" type="file" class="none" >
-      </div>
-      <div class="nomalInput" >
-        <span>昵称：</span>
-        <input name="nick" v-model="userInfo.nick" type="text">
-      </div>
-      <div class="nomalInput">
-        <span>电话：</span>
-        <input name="phone" v-model="userInfo.phone" type="text" >
-      </div>
-      <div class="nomalInput">
-        <span >职业：</span>
-        <input name="job" v-model="userInfo.job" type="text">
-      </div>
-      <div class="sexSelect" >
-        <span>性别：</span>
-        <div>
-          <span>男:&nbsp; &nbsp;</span>
-          <input v-model="userInfo.sex" value="1" checked="" type="radio">
-          <span>&nbsp; &nbsp; &nbsp; &nbsp; 女:&nbsp; &nbsp;</span>
-          <input v-model="userInfo.sex" value="0" type="radio">
-        </div>
-      </div>
-      <div class="nomalInput">
-        <span>地区：</span>
-        <input name="address" v-model="userInfo.address" type="text">
-      </div>
-      <div class="nomalInput">
-        <span>简介：</span>
-        <textarea name="userBreif" v-model="userInfo.userBreif" placeholder="300字以内" class="selfDesc" type="text" >
-        </textarea>
-      </div>
-      <button type="submit" v-on:click="changeUser" class="change_user">修&nbsp;&nbsp;&nbsp;&nbsp;改</button>
     </div>
   </div>
 </template>
@@ -56,7 +58,7 @@ export default {
   data () {
     return {
       userInfo: {},
-      showChangeUser: false
+      showChangeUser: null
     }
   },
   created () {
@@ -122,18 +124,21 @@ export default {
     background:#000;
     opacity: 0.7;
   }
+  .changeContent{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index:9999;
+    position:fixed;
+    width:100%;
+    height:100%;
+    top:0px;
+  }
   .content{
-    position: fixed;
-    z-index: 10002;
-    width: 90%;
-    max-width: 400px;
-    min-height: 320px;
+    padding:15px 20px 0px;
     background: white;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     text-align: center;
-    padding-top:10px;
+    position:relative;
     .maskCommonTop {
       color: @mainColor;
       font-size: 18px;
@@ -204,7 +209,24 @@ export default {
     padding-left: 10px;
   }
 }
-.none{
-  display:none;
+
+.showAnimation{
+  .mask{
+    display:block;
+  }
+  .changeContent{
+    animation:showFrameAnimation 0.4s ease-in;
+    animation-fill-mode: forwards;
+  }
+}
+.hideAnimation{
+  .mask{
+    height:0;
+    animation:maskShow 0.4s ease-in;
+  }
+  .changeContent{
+    animation:hideFrameAnimation 0.2s;
+    animation-fill-mode: forwards;
+  }
 }
 </style>

@@ -36,9 +36,10 @@ export default {
       border-radius:5px;
       position:fixed;
       z-index:99999;
-      top:80px;
       left:50%;
       transform: translateX(-50%);
+      animation:showPromptAnimation 2s ease-out;
+      animation-fill-mode: forwards;
     }
   }
   .success{
@@ -49,4 +50,23 @@ export default {
     color:red;
     background:#fef0f0;
   }
+  @keyframes showPromptAnimation
+    {
+      0% {
+        top:0px;
+        opacity:0;
+      }
+      20% {
+        top:80px;
+        opacity:1;
+      }
+      80% {
+        top:80px;
+        opacity:1;
+      }
+      100% {
+        top:0px;
+        opacity:0;
+      }
+    }
 </style>

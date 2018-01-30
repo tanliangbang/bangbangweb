@@ -12,11 +12,13 @@
               <div>
                 <p>{{resContent.content.title}}</p>
                 <div>
-                  <span>来源:&nbsp;{{resContent.content.from}}</span>&nbsp;&nbsp;<span>日期&nbsp;:&nbsp;{{formatDate(resContent.createTime)}}</span>&nbsp;&nbsp;<span>&nbsp;阅读:&nbsp;{{resContent.readyNum}}</span>
+                  <span>来源:&nbsp;{{resContent.username!==null?resContent.username:resContent.content.from}}</span>&nbsp;&nbsp;<span>日期&nbsp;:&nbsp;{{formatDate(resContent.createTime)}}</span>&nbsp;&nbsp;<span>&nbsp;阅读:&nbsp;{{resContent.readyNum}}</span>
                 </div>
               </div>
               <div class="content"  v-html="resContent.content.content"></div>
             </div>
+            <Comment v-bind:topicId="resContent.id" v-bind:type="type" />
+            <CommentList/>
           </div>
         </div>
       </div>
@@ -33,10 +35,15 @@
 import {getReadyRank, getRecommend, getResContentById} from '../../service/getData'
 import Tool from '../../utils/Tool'
 import RightList from '../../components/res/RightList'
+import Comment from '../../components/comment/Comment'
+import CommentList from '../../components/comment/CommentList'
+
 export default {
   name: 'ResContent',
   components: {
-    RightList
+    RightList,
+    Comment,
+    CommentList
   },
   data () {
     return {
@@ -60,7 +67,7 @@ export default {
       this.recommend = await getRecommend(this.type, 5)
     },
     formatDate (date) {
-      return Tool.formatDate1(date)
+      return Tool.formatDate2(date, '-')
     },
     fetchData () {
       this.initData()

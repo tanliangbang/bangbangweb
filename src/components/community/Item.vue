@@ -1,9 +1,9 @@
 <template>
   <div class="item">
-    <div class="top" v-if="itemData.from_user">
-      <img v-if="itemData.from_user.userAavar !== null" class="avatar"  :src="itemData.from_user.userAavar" />
-      <img v-if="itemData.from_user.userAavar === null" class="avatar" src="../../assets/img/user.jpg">
-      <span >{{itemData.from_user.userName}}</span>
+    <div class="top" v-if="itemData.username">
+      <img v-if="itemData.userAavar !== null" class="avatar"  :src="itemData.userAavar" />
+      <img v-if="itemData.userAavar === null" class="avatar" src="../../assets/img/user.jpg">
+      <span >{{itemData.username}}</span>
     </div>
     <p class="title" >
       <router-link :to="{ path: '/resContent',query: { id: itemData.id, type: type }}">{{itemData.content.title}}</router-link>

@@ -19,7 +19,7 @@
                    <img src=""/>
                </div>
               <input v-on:change="getImgDate($event)" type="file" />
-              <button>上传</button>
+              <a class="delImg" v-on:click="deleteImg($event)">删除图片</a>
             </div>
             <div class="content">
               <span>内容</span>
@@ -99,6 +99,7 @@ export default {
         param.append('chunk', '0') // 添加form表单中其他数据
         let config = {'Content-Type': 'multipart/form-data'}
         this.publishForm.titleImg = await api.uploadImg(param, config)
+        _this.nextElementSibling.style.display = 'inline-block'
         let reader = new FileReader()
         reader.readAsDataURL(file)
         reader.onload = function () {
@@ -111,6 +112,16 @@ export default {
         _this.value = null
         this.$prompt.error('请选择正确的图片')
       }
+    },
+    deleteImg (event) {
+      let _this = event.currentTarget
+      _this.previousElementSibling.value = ''
+      this.publishForm.titleImg = ''
+      let preNode = _this.previousElementSibling.previousElementSibling
+      preNode.lastChild.src = ''
+      preNode.lastChild.style.display = 'none'
+      preNode.firstChild.style.display = 'block'
+      _this.style.display = 'none'
     },
     checkValue (value) {
       if (this.publishForm[value] === '') {

@@ -71,6 +71,11 @@ export const publishArticle = (content, type) => http.post('/api/res/addResConte
 export const changeUserInfo = (param) => http.post('/api/users/changeUserInfo', param)
 
 /**
+ * 评论
+ */
+export const comment = (param) => http.post('/api/comments/comment', param)
+
+/**
  * 上传图片
  */
 export const uploadImg = (param, config) => http.upload('/api/upload/uploadImg', param, config)
