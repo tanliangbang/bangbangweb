@@ -76,6 +76,16 @@ export const changeUserInfo = (param) => http.post('/api/users/changeUserInfo', 
 export const comment = (param) => http.post('/api/comments/comment', param)
 
 /**
+ * 评论
+ */
+export const getCommentList = (topicId, type, start, size) => http.get('api/comments/commentList', {
+  topic_id: topicId,
+  type: type,
+  start: start,
+  size: size
+})
+
+/**
  * 上传图片
  */
 export const uploadImg = (param, config) => http.upload('/api/upload/uploadImg', param, config)

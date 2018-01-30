@@ -18,7 +18,7 @@
               <div class="content"  v-html="resContent.content.content"></div>
             </div>
             <Comment v-bind:topicId="resContent.id" v-bind:type="type" />
-            <CommentList/>
+            <CommentList v-bind:topicId="resContent.id" v-bind:type="type"/>
           </div>
         </div>
       </div>

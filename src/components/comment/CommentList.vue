@@ -1,44 +1,24 @@
 <template>
-  <div class="commentList">
+  <div class="commentList" v-if="commentList!==null">
     <p>评论列表</p>
-    <div>
-       <div>
+    <div v-for="comment in commentList" :key="comment.id">
+       <div >
          <div class="top">
-           <span class="fl">tanliangbang</span>
+           <span class="fl">{{comment.user.userName}}</span>
            <span class="fr">34分钟前</span>
          </div>
-         <p class="content">水电费斯蒂芬斯蒂芬水电费斯蒂芬斯蒂芬</p>
+         <p class="content">{{comment.content}}</p>
          <div class="replayBtn">
            <a>回复</a>
          </div>
        </div>
-        <div class="replay">
-             <div>
-               <div class="top">
-                 <span class="fl">tanliangbang</span>
-                 <span class="fr">34分钟前</span>
-               </div>
-               <p class="content">水电费斯蒂芬斯蒂芬水电费斯蒂芬斯蒂芬</p>
-               <div class="replayBtn">
-                 <a>回复</a>
-               </div>
-             </div>
-            <div>
-              <div class="top">
-                <span class="fl">tanliangbang</span>
-                <span class="fr">34分钟前</span>
-              </div>
-              <p class="content">水电费斯蒂芬斯蒂芬水电费斯蒂芬斯蒂芬</p>
-              <div class="replayBtn">
-                <a>回复</a>
-              </div>
-            </div>
-          <div>
+        <div class="replay" v-if="comment.reply.list.length>0">
+          <div v-for="reply in comment.reply.list" :key="reply.id">
             <div class="top">
-              <span class="fl">tanliangbang</span>
+              <span class="fl">{{reply.user.userName}}&nbsp;&nbsp;回复:&nbsp;&nbsp;{{reply.to_user.userName}}</span>
               <span class="fr">34分钟前</span>
             </div>
-            <p class="content">水电费斯蒂芬斯蒂芬水电费斯蒂芬斯蒂芬</p>
+            <p class="content">{{reply.content}}</p>
             <div class="replayBtn">
               <a>回复</a>
             </div>
@@ -56,9 +36,17 @@ export default {
   props: ['topicId', 'type'],
   data () {
     return {
+      commentList: null
     }
   },
+  created () {
+    this.initData()
+  },
   methods: {
+    async initData () {
+      let res = await api.getCommentList(this.topicId, this.type, 0, 5)
+      this.commentList = res.list
+    }
   }
 }
 </script>
@@ -73,6 +61,15 @@ export default {
       border-bottom:1px dashed @borderColor;
       margin:10px 0px;
     }
+    >div{
+      margin-top:10px;
+      border-bottom:1px dashed @borderColor;
+      padding-bottom:10px;
+    }
+    >div:last-child{
+      border-bottom:none;
+    }
+
   }
   .top{
     height:30px;
@@ -105,6 +102,9 @@ export default {
     >div{
       border-bottom:1px dashed @borderColor;
       padding-bottom:10px;
+    }
+    >div:last-child{
+      border-bottom:none;
     }
   }
 
