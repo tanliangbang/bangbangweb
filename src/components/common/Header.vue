@@ -19,8 +19,7 @@
 </template>
 
 <script>
-import {getNav} from '../../service/getData'
-import Tool from '../../utils/Tool'
+import * as api from '../../service/getData'
 import {mapActions} from 'vuex'
 export default {
   name: 'Header',
@@ -39,7 +38,7 @@ export default {
       'setUserInfo'
     ]),
     async initData () {
-      this.navList = await getNav('myArticle')
+      this.navList = await api.getNav('myArticle')
     },
     showLoginOrRegsit (str) {
       if (str === 'login') {
@@ -48,9 +47,9 @@ export default {
         this.$loginOrRegist.showRegist()
       }
     },
-    loginOut () {
+    async loginOut () {
+      await api.loginOut()
       this.setUserInfo(null)
-      Tool.removeLocalItem('userInfo')
     }
   }
 }

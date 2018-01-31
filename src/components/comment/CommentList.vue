@@ -3,26 +3,30 @@
     <p>评论列表</p>
     <div v-for="comment in commentList" :key="comment.id">
        <div >
-         <div class="top">
-           <span class="fl">{{comment.user.userName}}</span>
-           <span class="fr">34分钟前</span>
-         </div>
-         <p class="content">{{comment.content}}</p>
-         <div class="replayBtn">
-           <a>回复</a>
-         </div>
+             <div class="top">
+               <span class="fl"><img :src="comment.user.userAavar"/>{{comment.user.userName}}</span>
+               <span class="fr">34分钟前</span>
+             </div>
+             <p class="content">{{comment.content}}</p>
+             <div class="replyBtn">
+               <a v-on:click="showReply($event.currentTarget,comment.id,comment.user)">回复</a>
+             </div>
        </div>
-        <div class="replay" v-if="comment.reply.list.length>0">
-          <div v-for="reply in comment.reply.list" :key="reply.id">
-            <div class="top">
-              <span class="fl">{{reply.user.userName}}&nbsp;&nbsp;回复:&nbsp;&nbsp;{{reply.to_user.userName}}</span>
-              <span class="fr">34分钟前</span>
+        <div class="reply" v-if="comment.reply.list.length>0">
+            <div v-for="reply in comment.reply.list" :key="reply.id">
+                  <div class="top">
+                    <span class="fl">{{reply.user.userName}}&nbsp;&nbsp;回复:&nbsp;&nbsp;{{reply.to_user.userName}}</span>
+                    <span class="fr">34分钟前</span>
+                  </div>
+                  <p class="content">{{reply.content}}</p>
+                  <div class="replyBtn">
+                    <a v-on:click="showReply($event.currentTarget.parentNode, reply.id, reply.user)">回复</a>
+                  </div>
             </div>
-            <p class="content">{{reply.content}}</p>
-            <div class="replayBtn">
-              <a>回复</a>
-            </div>
-          </div>
+        </div>
+        <div class="commentTextarea">
+          <Comment v-bind:topicId="reply.id" v-bind:type="reply.type" v-bind:replyId="reply.replyId"
+                   v-bind:toUserId="reply.toUserId" v-on:commentSuccess="commentSuccess" />
         </div>
     </div>
 
@@ -31,12 +35,22 @@
 
 <script>
 import * as api from '../../service/getData'
+import Comment from '../../components/comment/Comment'
 export default {
   name: 'CommentList',
+  components: {
+    Comment
+  },
   props: ['topicId', 'type'],
   data () {
     return {
-      commentList: null
+      commentList: null,
+      reply: {
+        id: this.topicId,
+        type: this.type,
+        replyId: 0,
+        toUserId: 0
+      }
     }
   },
   created () {
@@ -46,6 +60,23 @@ export default {
     async initData () {
       let res = await api.getCommentList(this.topicId, this.type, 0, 5)
       this.commentList = res.list
+    },
+    commentSuccess () {
+      this.initData()
+    },
+    showReply (event, replyId, user) {
+      let currNode = event.parentNode.parentNode.parentNode.lastChild
+      if (currNode.style.display === 'none' || currNode.style.display === '') {
+        currNode.style.display = 'block'
+        this.reply.replyId = replyId
+        this.reply.toUserId = user.id
+        currNode.firstChild.firstChild.focus()
+        currNode.firstChild.firstChild.placeholder = '@' + user.userName
+      } else {
+        currNode.style.display = 'none'
+        this.reply.replyId = 0
+        this.reply.toUserId = 0
+      }
     }
   }
 }
@@ -54,12 +85,11 @@ export default {
 <style lang="less" scoped>
   @import "../../style/common";
   .commentList{
-    padding:20px 30px;
+    padding:20px 50px;
     >p:nth-child(1){
       color:@mainColor;
       padding-bottom:20px;
       border-bottom:1px dashed @borderColor;
-      margin:10px 0px;
     }
     >div{
       margin-top:10px;
@@ -73,9 +103,16 @@ export default {
   }
   .top{
     height:30px;
-    line-height: 30px;
     >span:nth-child(1){
       color:@mainColor;
+      >img{
+        width:30px;
+        height:30px;
+        border-radius:50%;
+        vertical-align: middle;
+        margin-right:15px;
+        border:1px solid @borderColor;
+      }
     }
     >span:nth-child(2){
       color:@gray-color;
@@ -84,9 +121,10 @@ export default {
   }
   .content{
     padding:5px 0px;
-    font-size:14px;
+    margin-top:10px;
+    font-size:16px;
   }
-  .replayBtn{
+  .replyBtn{
     text-align: right;
     margin-top:5px;
     >a{
@@ -94,7 +132,7 @@ export default {
     }
     cursor: pointer;
   }
-  .replay{
+  .reply{
      background:#f5f7fa;
      margin:10px 40px;
     padding:10px 20px;
@@ -108,4 +146,7 @@ export default {
     }
   }
 
+  .commentTextarea{
+    display:none
+  }
 </style>

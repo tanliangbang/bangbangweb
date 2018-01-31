@@ -71,10 +71,30 @@ export const publishArticle = (content, type) => http.post('/api/res/addResConte
 export const changeUserInfo = (param) => http.post('/api/users/changeUserInfo', param)
 
 /**
+ * 获取用户信息
+ */
+export const getUserInfo = (param) => http.get('/api/users/getUserInfo', param)
+
+/**
+ * 用户退出
+ */
+export const loginOut = () => http.get('/api/users/loginOut', {
+
+})
+
+/**
  * 评论
  */
-export const comment = (param) => http.post('/api/comments/comment', param)
-
+/**
+ * 评论
+ */
+export const comment = (topicId, toUserId = 0, replyId = 0, type, content) => http.post('/api/comments/comment', {
+  topic_id: topicId,
+  to_uid: toUserId,
+  reply_id: replyId,
+  type: type,
+  content: content
+})
 /**
  * 评论
  */

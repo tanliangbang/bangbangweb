@@ -1,6 +1,6 @@
 <template>
   <div class="comment">
-        <textarea v-model="comment.content"  placeholder="回复:"></textarea>
+        <textarea v-model="content"  placeholder="回复:"></textarea>
         <div>
           <button v-on:click="commitComment">确&nbsp;&nbsp;&nbsp;&nbsp;定</button>
         </div>
@@ -11,25 +11,24 @@
 import * as api from '../../service/getData'
 export default {
   name: 'Comment',
-  props: ['topicId', 'type'],
+  props: ['topicId', 'type', 'toUserId', 'replyId'],
   data () {
     return {
-      comment: {
-        topic_id: this.topicId,
-        to_uid: 0,
-        reply_id: 0,
-        type: this.type,
-        content: ''
-      }
+      content: ''
     }
   },
   methods: {
     async commitComment () {
-      if (this.comment.content === '') {
+      if (this.$store.state.common.userInfo === null) {
+        this.$loginOrRegist.showLogin()
+        return false
+      }
+      if (this.content === '') {
         return false
       } else {
-        await api.comment(this.comment)
+        await api.comment(this.topicId, this.toUserId, this.replyId, this.type, this.content)
         this.$prompt.success('评论成功')
+        this.$emit('commentSuccess', this)
       }
     }
   }
@@ -42,7 +41,6 @@ export default {
     width:100%;
     padding:20px 20px;
     margin-top:20px;
-    border-top:1px dashed @borderColor;
     textarea{
       width:100%;
       height:120px;

@@ -17,15 +17,15 @@
               </div>
               <div class="content"  v-html="resContent.content.content"></div>
             </div>
-            <Comment v-bind:topicId="resContent.id" v-bind:type="type" />
-            <CommentList v-bind:topicId="resContent.id" v-bind:type="type"/>
+            <Comment v-bind:topicId="resContent.id" v-bind:type="type" v-on:commentSuccess="commentSuccess"/>
+            <CommentList v-bind:topicId="resContent.id" ref="commentList" v-bind:type="type"/>
           </div>
         </div>
       </div>
 
       <div class="right">
        <RightList v-if="type!==null" v-bind:rightList="readyRank"  v-bind:title="'阅读排行'" v-bind:type="type"/>
-       <RightList v-if="type!==null" v-bind:rightList="recommend"  v-bind:title="'推荐排行'" v-bind:type="type"/>
+       <RightList v-if="type!==null"  v-bind:rightList="recommend"   v-bind:title="'推荐排行'" v-bind:type="type"/>
       </div>
     </div>
   </div>
@@ -37,7 +37,6 @@ import Tool from '../../utils/Tool'
 import RightList from '../../components/res/RightList'
 import Comment from '../../components/comment/Comment'
 import CommentList from '../../components/comment/CommentList'
-
 export default {
   name: 'ResContent',
   components: {
@@ -58,6 +57,9 @@ export default {
     this.initData()
   },
   methods: {
+    commentSuccess () {
+      this.$refs.commentList.initData()
+    },
     async initData () {
       this.type = this.$route.query.type
       let obj = await getResContentById(this.$route.query.id, this.type)
