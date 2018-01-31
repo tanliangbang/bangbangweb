@@ -1,5 +1,5 @@
 <template>
-  <div class="userCenter">
+  <div class="userCenter" v-if="$store.state.common.userInfo">
     <ChangeUser ref="changeUserInfo"/>
     <div class="container">
        <div>
@@ -64,10 +64,13 @@ export default {
     }
   },
   created () {
-    let userInfo = this.$store.state.common.userInfo
-    if (!userInfo || userInfo === null) {
-      this.$router.push('/home')
-    }
+    setTimeout(function () {
+      let userInfo = this.$store.state.common.userInfo
+      if (!userInfo || userInfo === null) {
+        this.$router.push('/home')
+      }
+    }.bind(this), 1000)
+
     this.initDate()
   },
   methods: {

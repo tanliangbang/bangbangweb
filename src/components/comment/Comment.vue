@@ -28,6 +28,7 @@ export default {
       } else {
         await api.comment(this.topicId, this.toUserId, this.replyId, this.type, this.content)
         this.$prompt.success('评论成功')
+        this.content = ''
         this.$emit('commentSuccess', this)
       }
     }

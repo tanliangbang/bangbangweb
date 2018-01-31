@@ -4,8 +4,9 @@
     <div v-for="comment in commentList" :key="comment.id">
        <div >
              <div class="top">
-               <span class="fl"><img :src="comment.user.userAavar"/>{{comment.user.userName}}</span>
-               <span class="fr">34分钟前</span>
+               <span class="fl"><img v-if="comment.user.userAavar" :src="comment.user.userAavar"/>
+                 <img v-if="!comment.user.userAavar" src="../../assets/img/user.jpg"/>{{comment.user.userName}}</span>
+               <span class="fr">{{formatdate(comment.cTime)}}</span>
              </div>
              <p class="content">{{comment.content}}</p>
              <div class="replyBtn">
@@ -16,11 +17,11 @@
             <div v-for="reply in comment.reply.list" :key="reply.id">
                   <div class="top">
                     <span class="fl">{{reply.user.userName}}&nbsp;&nbsp;回复:&nbsp;&nbsp;{{reply.to_user.userName}}</span>
-                    <span class="fr">34分钟前</span>
+                    <span class="fr">{{formatdate(reply.cTime)}}</span>
                   </div>
                   <p class="content">{{reply.content}}</p>
                   <div class="replyBtn">
-                    <a v-on:click="showReply($event.currentTarget.parentNode, reply.id, reply.user)">回复</a>
+                    <a v-on:click="showReply($event.currentTarget.parentNode, comment.id, reply.user)">回复</a>
                   </div>
             </div>
         </div>
@@ -36,6 +37,7 @@
 <script>
 import * as api from '../../service/getData'
 import Comment from '../../components/comment/Comment'
+import Tool from '../../utils/Tool'
 export default {
   name: 'CommentList',
   components: {
@@ -77,6 +79,9 @@ export default {
         this.reply.replyId = 0
         this.reply.toUserId = 0
       }
+    },
+    formatdate (date) {
+      return Tool.formatDate1(date)
     }
   }
 }
@@ -100,6 +105,14 @@ export default {
       border-bottom:none;
     }
 
+  }
+  .reply{
+    .top{
+      padding-top:10px;
+    }
+    .replyBtn{
+      font-size:14px;
+    }
   }
   .top{
     height:30px;

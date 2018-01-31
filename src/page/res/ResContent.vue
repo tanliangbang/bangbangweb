@@ -90,6 +90,7 @@ export default {
         width:100%;
         position: relative;
         float: left;
+        padding-bottom:20px;
         >div{
           background:#fff;
           margin-right:360px;

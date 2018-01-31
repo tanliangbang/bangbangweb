@@ -37,7 +37,7 @@ export default {
     ]),
     async initData () {
       let userInfo = await api.getUserInfo()
-      if (userInfo.statusCode === 200) {
+      if (userInfo && userInfo.id) {
         this.setUserInfo(userInfo)
       }
     }

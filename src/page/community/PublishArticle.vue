@@ -149,7 +149,7 @@ export default {
           this.publishForm.content = this.UE.getContent()
           await api.publishArticle(JSON.stringify(this.publishForm), this.type)
           this.$prompt.success('发表成功')
-          this.$router.push('/community?type' + this.type)
+          this.$router.push('/community?type=' + this.type)
         }
       }
     }
