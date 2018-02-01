@@ -74,6 +74,7 @@ export default {
   created () {
     this.$loading()
     this.initDate()
+    window.scrollTo(0, 0)
   },
   methods: {
     async initDate () {

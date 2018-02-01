@@ -32,6 +32,7 @@ export default {
     toPage (num) {
       this.pagination.onShowSizeChange(num)
       this.pagination.current = num
+      window.scrollTo(0, 0)
     },
     dealTotalPage () {
       if (this.pagination.totalSize > 0) {

@@ -29,6 +29,7 @@ export default {
     }
   },
   mounted () {
+    window.addEventListener('scroll', this.dealHeader)
   },
   created () {
     this.initData()
@@ -50,6 +51,10 @@ export default {
     async loginOut () {
       await api.loginOut()
       this.setUserInfo(null)
+    },
+    dealHeader () {
+      let scroll = document.documentElement.scrollTop || document.body.scrollTop
+      console.log(scroll)
     }
   }
 }

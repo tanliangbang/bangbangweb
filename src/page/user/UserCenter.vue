@@ -64,6 +64,7 @@ export default {
     }
   },
   created () {
+    window.scrollTo(0, 0)
     setTimeout(function () {
       let userInfo = this.$store.state.common.userInfo
       if (!userInfo || userInfo === null) {
