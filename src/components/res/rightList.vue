@@ -67,4 +67,14 @@ export default {
       }
     }
   }
+
+
+  .right-list1{
+    animation: myfirst 1s;
+  }
+  @keyframes myfirst
+  {
+    from {transform: translateX(300px);}
+    to {transform: translateX(0px);}
+  }
 </style>

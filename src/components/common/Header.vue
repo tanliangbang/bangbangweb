@@ -53,8 +53,9 @@ export default {
       this.setUserInfo(null)
     },
     dealHeader () {
-      let scroll = document.documentElement.scrollTop || document.body.scrollTop
-      console.log(scroll)
+      /*
+            //let scroll = document.documentElement.scrollTop || document.body.scrollTop
+      */
     }
   }
 }
