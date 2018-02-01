@@ -9,7 +9,7 @@
 
            <p class="model-title">精品文章  <router-link to="/resContentList"> 更多精品文章</router-link></p>
           <div class="list-model1">
-            <div v-for="(item) in goodArticle" :key="item.id">
+            <div v-for="(item) in goodArticle" :key="item.id" class="item">
               <p><router-link :to="{ path: '/resContent',query: { id: item.id, type: type }}">{{item.content.title}}</router-link></p>
               <div>
                 <span>作者:&nbsp;{{item.content.from}}</span>&nbsp;&nbsp;<span>日期&nbsp;:{{formatDate(item.createTime,'-')}}</span>&nbsp;&nbsp;<span>&nbsp;阅读:&nbsp;{{item.readyNum}}</span>
