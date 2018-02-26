@@ -2,7 +2,7 @@
   <div class="item">
     <div class="top" v-if="itemData.username">
       <img v-if="itemData.userAavar !== null" class="avatar"  :src="itemData.userAavar" />
-      <img v-if="itemData.userAavar === null" class="avatar" src="../../assets/img/user.jpg">
+      <img v-if="itemData.userAavar === null" class="avatar" src="/static/img/user.jpg">
       <span >{{itemData.username}}</span>
     </div>
     <p class="title" >
@@ -33,8 +33,8 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang='less' scoped>
- @import "../../style/common.less";
-.item{
+  @import "../../style/common.less";
+  .item{
     background:#fff;
     position:relative;
     margin:0px;
@@ -74,5 +74,5 @@ export default {
       top:50%;
       margin-top:-40px;
     }
-}
+  }
 </style>

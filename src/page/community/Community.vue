@@ -2,7 +2,7 @@
   <div class="community">
       <div class="container">
           <div class="top">
-            <img src="../../assets/img/hd01.jpg" />
+            <img src="http://p3gc5ydac.bkt.clouddn.com/hd01.jpg" />
           </div>
 
           <div class="navList">
@@ -22,8 +22,8 @@
             </div>
           </div>
           <div class="right">
-            <RightList  v-bind:rightList="readyRank" v-bind:type="type" v-bind:title="'阅读排行'"/>
-            <RightList  v-bind:rightList="recommend" v-bind:type="type" v-bind:title="'推荐排行'"/>
+            <RightList   v-bind:rightList="readyRank" v-bind:type="type" v-bind:title="'阅读排行'"/>
+            <RightList   v-bind:rightList="recommend" v-bind:type="type" v-bind:title="'推荐排行'"/>
           </div>
         </div>
       </div>
@@ -92,7 +92,9 @@ export default {
       this.$router.push('community?type=' + type)
     },
     fetchData () {
-      this.initData()
+      if (this.$route.name === 'community' && this.$route.query.type && this.type !== null) {
+        this.initData()
+      }
     },
     publish () {
       let userInfo = this.$store.state.common.userInfo
@@ -111,65 +113,64 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="less" scoped>
-@import "../../style/common";
-.community{
-  .top{
-    width:100%;
-    >img{
+  @import "../../style/common";
+  .community{
+    .top{
       width:100%;
-      height:200px;
-    }
-  }
-  .navList{
-    >ul{
-      margin: 0px;
-      width: 100%;
-      height: 48px;
-      background: #fff;
-      border: 1px solid #f0f0f0;
-      overflow: hidden;
-      position: relative;
-      .active{
-        background:@mainColor;
-        color:#fff;
+      >img{
+        width:100%;
+        height:200px;
       }
-      >li{
-        float: left;
-        padding: 0 30px;
-        border-right: 1px solid #f0f0f0;
-        font-size: 16px;
-        line-height: 48px;
+    }
+    .navList{
+      >ul{
+        margin: 0px;
+        width: 100%;
+        height: 48px;
+        background: #fff;
+        border: 1px solid #f0f0f0;
+        overflow: hidden;
         position: relative;
+        .active{
+          background:@mainColor;
+          color:#fff;
+        }
+        >li{
+          float: left;
+          padding: 0 30px;
+          border-right: 1px solid #f0f0f0;
+          font-size: 16px;
+          line-height: 48px;
+          position: relative;
+          cursor: pointer;
+        }
+      }
+      .publish-btn{
+        position: absolute;
+        right: 20px;
+        top: 9px;
+        width: 80px;
+        text-align: center;
+        height: 30px;
+        font-size:14px;
+        background:@mainColor;
+        color: #fff;
+        line-height: 30px;
         cursor: pointer;
       }
     }
-    .publish-btn{
-      position: absolute;
-      right: 20px;
-      top: 9px;
-      width: 80px;
-      text-align: center;
-      height: 30px;
-      font-size:14px;
-      background:@mainColor;
-      color: #fff;
-      line-height: 30px;
-      cursor: pointer;
+    .main-right{
+      margin-top:10px;
     }
-  }
-  .main-right{
-    margin-top:10px;
-  }
-  .listContent{
-    margin-right:360px;
-    background:#fff;
-    padding:20px;
-    >div{
-      >div:last-child{
-        border-bottom:none;
+    .listContent{
+      margin-right:360px;
+      background:#fff;
+      padding:20px;
+      >div{
+        >div:last-child{
+          border-bottom:none;
+        }
       }
     }
   }
-}
-
 </style>

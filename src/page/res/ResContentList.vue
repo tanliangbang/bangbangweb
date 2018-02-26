@@ -16,8 +16,8 @@
             <Pagination v-bind:pagination = "pagination"/>
           </div>
           <div class="right">
-            <RightList  v-bind:rightList="readyRank" v-bind:type="type" v-bind:title="'阅读排行'"/>
-            <RightList  v-bind:rightList="recommend" v-bind:type="type" v-bind:title="'推荐排行'"/>
+            <RightList   v-bind:rightList="readyRank" v-bind:type="type" v-bind:title="'阅读排行'"/>
+            <RightList   v-bind:rightList="recommend" v-bind:type="type" v-bind:title="'推荐排行'"/>
           </div>
       </div>
     </div>
@@ -85,7 +85,9 @@ export default {
       return Tool.formatDate1(date)
     },
     fetchData () {
-      this.initData()
+      if (this.$route.name === 'resContentList' && this.$route.query.type && this.type !== null) {
+        this.initData()
+      }
     }
   },
   watch: {
@@ -101,9 +103,9 @@ export default {
     width:100%;
   }
   .mainList{
-     background:#fff;
-     margin-top:20px;
-     padding-top:20px;
+    background:#fff;
+    margin-top:20px;
+    padding-top:20px;
   }
   .nav{
     width:100%;
@@ -118,6 +120,9 @@ export default {
         margin:0px 20px;
         font-size:14px;
         color:#71777c;
+        a{
+          cursor: pointer;
+        }
       }
     }
     .selectedBottom{

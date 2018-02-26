@@ -2,7 +2,9 @@
   <div id="app">
    <Header></Header>
     <div class="pageContent" v-bind:style="{ minHeight:minHeight+'px' }">
-      <router-view/>
+      <keep-alive exclude="rightList">
+          <router-view/>
+      </keep-alive>
     </div>
     <Footer></Footer>
   </div>
@@ -11,7 +13,7 @@
 <script>
 import Header from './components/common/Header'
 import Footer from './components/common/Footer'
-import {mapActions} from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import * as api from './service/getData'
 export default {
   name: 'App',
@@ -24,11 +26,20 @@ export default {
     Header,
     Footer
   },
+  computed: {
+    ...mapGetters({
+      currWidth: 'setCurrWidth'
+    })
+  },
   mounted () {
-    this.initData()
-    this.minHeight = document.documentElement.clientHeight - 120
+    this.$store.dispatch('getUserInfo')
+    this.minHeight = document.documentElement.clientHeight - 60
+    let width = document.documentElement.clientWidth
+    this.$store.dispatch('setCurrWidth', width)
     window.onresize = () => {
-      this.minHeight = document.documentElement.clientHeight - 120
+      this.minHeight = document.documentElement.clientHeight - 60
+      let width = document.documentElement.clientWidth
+      this.$store.dispatch('setCurrWidth', width)
     }
   },
   methods: {

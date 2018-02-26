@@ -28,49 +28,48 @@ export default {
 </script>
 
 <style lang="less" scoped>
-  @import "../../style/common.less";
-  .listItem{
-      width:100%;
-      height:300px;
-      border: 1px solid #d5e0dd;
-      background: #fff;
-      box-shadow: 0 0 7px #cae7df;
-      margin-bottom:20px;
-      padding:20px;
-      position:relative;
-      >img{
-        width:100%;
-        height:230px;
-      }
-      p{
-        margin-top:10px;
-        color:#999;
-        text-align: center;
-        font-size:14px;
-      }
-      >div{
-        position:absolute;
-        background:rgba(0,0,0,0.5);
-        width:100%;
-        height:100%;
-        top:0px;
-        left:0px;
-        padding:40px;
-        transition: display 0.3s ease;
-        >img{
-          width:100%;
-          height:100%;
-        }
-        >a{
-          width:100%;
-          height:100%;
-          display:block;
-          color:@mainColor;
-          font-size:20px;
-          text-align: center;
-          padding-top:80px;
-        }
-      }
+@import "../../style/common.less";
+.listItem{
+  width:100%;
+  height:300px;
+  border: 1px solid #d5e0dd;
+  background: #fff;
+  box-shadow: 0 0 7px #cae7df;
+  margin-bottom:20px;
+  padding:20px;
+  position:relative;
+  >img{
+    width:100%;
+    height:230px;
   }
-
+  p{
+    margin-top:10px;
+    color:#999;
+    text-align: center;
+    font-size:14px;
+  }
+  >div{
+    position:absolute;
+    background:rgba(0,0,0,0.5);
+    width:100%;
+    height:100%;
+    top:0px;
+    left:0px;
+    padding:40px;
+    transition: display 0.3s ease;
+    >img{
+      width:100%;
+      height:100%;
+    }
+    >a{
+      width:100%;
+      height:100%;
+      display:block;
+      color:@mainColor;
+      font-size:20px;
+      text-align: center;
+      padding-top:80px;
+    }
+  }
+}
 </style>

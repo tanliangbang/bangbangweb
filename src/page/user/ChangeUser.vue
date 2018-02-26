@@ -113,120 +113,120 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import "../../style/common.less";
-.changeUser{
-  .mask{
-    position:fixed;
-    top:0px;
-    width:100%;
-    height:100%;
-    z-index:5000;
-    background:#000;
-    opacity: 0.7;
-  }
-  .changeContent{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index:9999;
-    position:fixed;
-    width:100%;
-    height:100%;
-    top:0px;
-  }
-  .content{
-    padding:15px 20px 0px;
-    background: white;
-    text-align: center;
-    position:relative;
-    .maskCommonTop {
-      color: @mainColor;
-      font-size: 18px;
-      padding-bottom:10px;
-      border-bottom:1px dashed @borderColor;
-      margin-bottom:10px;
+  @import "../../style/common.less";
+  .changeUser{
+    .mask{
+      position:fixed;
+      top:0px;
+      width:100%;
+      height:100%;
+      z-index:5000;
+      background:#000;
+      opacity: 0.7;
     }
-    .avarHeard{
+    .changeContent{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index:9999;
+      position:fixed;
+      width:100%;
+      height:100%;
+      top:0px;
+    }
+    .content{
+      padding:15px 20px 0px;
+      background: white;
       text-align: center;
-      margin-bottom:20px;
-      img{
-        width:120px;
-        height:120px;
-        border-radius:50%;
-        cursor: pointer;
+      position:relative;
+      .maskCommonTop {
+        color: @mainColor;
+        font-size: 18px;
+        padding-bottom:10px;
+        border-bottom:1px dashed @borderColor;
+        margin-bottom:10px;
       }
-    }
-    .sexSelect{
-      font-size:16px;
-      >div{
-        width: 280px;
-        display:inline-block;
-        height: 32px;
-        font-size: 14px;
-        padding-left: 10px;
-        text-align: left;
-        >input{
-          width:15px;
-          height:15px;
-          vertical-align: -3px;
+      .avarHeard{
+        text-align: center;
+        margin-bottom:20px;
+        img{
+          width:120px;
+          height:120px;
+          border-radius:50%;
+          cursor: pointer;
+        }
+      }
+      .sexSelect{
+        font-size:16px;
+        >div{
+          width: 280px;
+          display:inline-block;
+          height: 32px;
+          font-size: 14px;
+          padding-left: 10px;
+          text-align: left;
+          >input{
+            width:15px;
+            height:15px;
+            vertical-align: -3px;
+          }
         }
       }
     }
   }
-}
 
-.selfDesc{
-  height: 87px;
-  color: #666;
-  font-size: 14px;
-  padding-top: 11px;
-  padding-left: 14px;
-  border: 1px solid @borderColor;
-  vertical-align: top;
-  width:280px;
-}
-
-.change_user{
-  width:70%;
-  height:35px;
-  line-height: 30px;
-  text-align: center;
-  background:@mainColor;
-  font-size:16px;
-  margin:0px auto 20px;
-  border:none;
-  color:#fff;
-  cursor: pointer;
-}
-.nomalInput {
-  font-size: 16px;
-  margin-bottom: 20px;
-  input {
-    width: 280px;
-    height: 32px;
-    border: 1px solid @borderColor;
+  .selfDesc{
+    height: 87px;
+    color: #666;
     font-size: 14px;
-    padding-left: 10px;
+    padding-top: 11px;
+    padding-left: 14px;
+    border: 1px solid @borderColor;
+    vertical-align: top;
+    width:280px;
   }
-}
 
-.showAnimation{
-  .mask{
-    display:block;
+  .change_user{
+    width:70%;
+    height:35px;
+    line-height: 30px;
+    text-align: center;
+    background:@mainColor;
+    font-size:16px;
+    margin:0px auto 20px;
+    border:none;
+    color:#fff;
+    cursor: pointer;
   }
-  .changeContent{
-    animation:showFrameAnimation 0.4s ease-in;
-    animation-fill-mode: forwards;
+  .nomalInput {
+    font-size: 16px;
+    margin-bottom: 20px;
+    input {
+      width: 280px;
+      height: 32px;
+      border: 1px solid @borderColor;
+      font-size: 14px;
+      padding-left: 10px;
+    }
   }
-}
-.hideAnimation{
-  .mask{
-    height:0;
-    animation:maskShow 0.4s ease-in;
+
+  .showAnimation{
+    .mask{
+      display:block;
+    }
+    .changeContent{
+      animation:showFrameAnimation 0.4s ease-in;
+      animation-fill-mode: forwards;
+    }
   }
-  .changeContent{
-    animation:hideFrameAnimation 0.2s;
-    animation-fill-mode: forwards;
+  .hideAnimation{
+    .mask{
+      height:0;
+      animation:maskShow 0.4s ease-in;
+    }
+    .changeContent{
+      animation:hideFrameAnimation 0.2s;
+      animation-fill-mode: forwards;
+    }
   }
-}
 </style>

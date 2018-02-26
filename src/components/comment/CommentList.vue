@@ -5,7 +5,7 @@
        <div >
              <div class="top">
                <span class="fl"><img v-if="comment.user.userAavar" :src="comment.user.userAavar"/>
-                 <img v-if="!comment.user.userAavar" src="../../assets/img/user.jpg"/>{{comment.user.userName}}</span>
+                 <img v-if="!comment.user.userAavar" src="/static/img/user.jpg"/>{{comment.user.userName}}</span>
                <span class="fr">{{formatdate(comment.cTime)}}</span>
              </div>
              <p class="content">{{comment.content}}</p>
@@ -146,8 +146,8 @@ export default {
     cursor: pointer;
   }
   .reply{
-     background:#f5f7fa;
-     margin:10px 40px;
+    background:#f5f7fa;
+    margin:10px 40px;
     padding:10px 20px;
     border-radius:5px;
     >div{
@@ -156,6 +156,11 @@ export default {
     }
     >div:last-child{
       border-bottom:none;
+    }
+  }
+  @media screen and (max-width: 1000px) {
+    .reply{
+      margin:10px 10px;
     }
   }
 

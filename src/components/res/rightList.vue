@@ -3,7 +3,7 @@
     <div>{{title}}</div>
     <div v-if="rightList!==null" v-for="(item) in rightList" :key="item.id" class="right-list1-item">
       <img v-if="item.content.titleImg" :src="item.content.titleImg">
-      <img v-if="!item.content.titleImg" src="../../assets/img/user.jpg">
+      <img v-if="!item.content.titleImg" src="/static/img/user.jpg">
 
       <p><router-link :to="{ path: '/resContent',query: { id: item.id, type: type }}">{{item.content.title}}</router-link></p>
       <div>{{item.content.from}} 发表月:{{formatDate(item.createTime)}}</div>
@@ -36,6 +36,7 @@ export default {
       color:@mainColor;
       padding-bottom:5px;
       border-bottom:1px solid @borderColor;
+      background:#fff;
     }
     .right-list1-item{
       position:relative;
@@ -43,6 +44,7 @@ export default {
       border-bottom:1px dashed @borderColor;
       padding-bottom:15px;
       min-height:70px;
+      background:#fff;
       img{
         width:70px;
         height:60px;
@@ -66,15 +68,5 @@ export default {
         color:#666;
       }
     }
-  }
-
-
-  .right-list1{
-    animation: myfirst 1s;
-  }
-  @keyframes myfirst
-  {
-    from {transform: translateX(300px);}
-    to {transform: translateX(0px);}
   }
 </style>

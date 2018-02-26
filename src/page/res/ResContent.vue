@@ -1,15 +1,14 @@
 <template>
   <div class="resContent" v-if="resContent!==null">
-
     <div class="container">
-      <div class="main">
-        <div>
-          <div>
-            <img src="../../assets/img/top.png"/>
-          </div>
+      <div class="main-right">
+        <div class="main">
           <div class="mainList">
+            <div class="topadvertise">
+              <img src="http://p3gc5ydac.bkt.clouddn.com/top.png"/>
+            </div>
             <div class="list-model1">
-              <div>
+              <div class="item">
                 <p>{{resContent.content.title}}</p>
                 <div>
                   <span>来源:&nbsp;{{resContent.username!==null?resContent.username:resContent.content.from}}</span>&nbsp;&nbsp;<span>日期&nbsp;:&nbsp;{{formatDate(resContent.createTime)}}</span>&nbsp;&nbsp;<span>&nbsp;阅读:&nbsp;{{resContent.readyNum}}</span>
@@ -21,11 +20,10 @@
             <CommentList v-bind:topicId="resContent.id" ref="commentList" v-bind:type="type"/>
           </div>
         </div>
-      </div>
-
-      <div class="right">
-       <RightList v-if="type!==null" v-bind:rightList="readyRank"  v-bind:title="'阅读排行'" v-bind:type="type"/>
-       <RightList v-if="type!==null"  v-bind:rightList="recommend"   v-bind:title="'推荐排行'" v-bind:type="type"/>
+        <div class="right">
+          <RightList v-if="type!==null" v-bind:rightList="readyRank"  v-bind:title="'阅读排行'" v-bind:type="type"/>
+          <RightList v-if="type!==null"  v-bind:rightList="recommend"   v-bind:title="'推荐排行'" v-bind:type="type"/>
+        </div>
       </div>
     </div>
   </div>
@@ -73,7 +71,9 @@ export default {
       return Tool.formatDate2(date, '-')
     },
     fetchData () {
-      this.initData()
+      if (this.$route.name === 'resContent' && this.$route.query.type) {
+        this.initData()
+      }
     }
   },
   watch: {
@@ -87,41 +87,22 @@ export default {
   @import "../../style/common.less";
   .resContent{
     width:100%;
-      .main{
-        width:100%;
-        position: relative;
-        float: left;
-        padding-bottom:20px;
-        >div{
-          background:#fff;
-          margin-right:360px;
-          >div:nth-child(1){
-            padding:5px 20px;
-            img{
-              width:100%;
-              max-height:100px;
-            }
-          }
-        }
-    }
-
-    .right{
-      float:left;
-      margin-left: -340px;
-      right:0px;
-      background:#fff;
-      width:340px;
-    }
   }
   .mainList{
     background:#fff;
-    margin-top:20px;
     padding-top:20px;
     .content{
       overflow-x:hidden;
+      padding:10px 20px;
       img{
         width:100% !important;
       }
+    }
+  }
+  .topadvertise {
+    padding:0px 20px;
+    >img{
+      width:100%;
     }
   }
 </style>

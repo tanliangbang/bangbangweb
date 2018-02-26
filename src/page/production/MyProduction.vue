@@ -2,7 +2,7 @@
   <div class="myProduction">
       <div class="container">
         <div class="production-page">
-          <img src="../../assets/img/proImg.jpg">
+          <img src="http://p3gc5ydac.bkt.clouddn.com/proImg.jpg">
           <div class="productionList">
             <div>
               <ListItem v-for="(item) in resContentList1" :key="item.id" v-bind:item="item" />
@@ -77,6 +77,7 @@ export default {
     >div{
       flex:1;
       margin:20px;
+      min-width:200px;
     }
   }
 

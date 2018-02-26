@@ -6,7 +6,7 @@
          <div class="utop">
              <div class="fl">
                <img v-if="$store.state.common.userInfo.userAavar" class="userAavar" :src="$store.state.common.userInfo.userAavar" >
-               <img v-if="!$store.state.common.userInfo.userAavar" class="userAavar" src="../../assets/img/user.jpg" >
+               <img v-if="!$store.state.common.userInfo.userAavar" class="userAavar" src="/static/img/user.jpg" >
              </div>
              <div class="fl simpleInfo" >
                <div >{{$store.state.common.userInfo.username}}</div>
@@ -36,9 +36,9 @@
              </div>
            </div>
            <div class="right">
-             <img src="../../assets/img/right.jpg">
-             <img src="../../assets/img/right.jpg">
-             <img src="../../assets/img/right.jpg">
+             <img src="http://p3gc5ydac.bkt.clouddn.com/right.jpg">
+             <img src="http://p3gc5ydac.bkt.clouddn.com/right.jpg">
+             <img src="http://p3gc5ydac.bkt.clouddn.com/right.jpg">
            </div>
          </div>
        </div>

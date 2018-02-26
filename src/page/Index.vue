@@ -10,11 +10,12 @@
            <p class="model-title">精品文章  <router-link to="/resContentList"> 更多精品文章</router-link></p>
           <div class="list-model1">
             <div v-for="(item) in goodArticle" :key="item.id" class="item">
-              <p><router-link :to="{ path: '/resContent',query: { id: item.id, type: type }}">{{item.content.title}}</router-link></p>
+              <p v-if="!$store.state.common.isMobile"><router-link target="_blank" :to="{ path: '/resContent',query: { id: item.id, type: 'goodarticles' }}">{{item.content.title}}</router-link></p>
+              <p v-if="$store.state.common.isMobile"><router-link  :to="{ path: '/resContent',query: { id: item.id, type: 'goodarticles' }}">{{item.content.title}}</router-link></p>
               <div>
                 <span>作者:&nbsp;{{item.content.from}}</span>&nbsp;&nbsp;<span>日期&nbsp;:{{formatDate(item.createTime,'-')}}</span>&nbsp;&nbsp;<span>&nbsp;阅读:&nbsp;{{item.readyNum}}</span>
               </div>
-              <router-link :to="{ path: '/resContent',query: { id: item.id, type: type }}">立即阅读</router-link>
+              <router-link class="articleDetial" :to="{ path: '/resContent',query: { id: item.id, type: 'goodarticles' }}">立即阅读</router-link>
             </div>
 
           </div>
@@ -32,19 +33,19 @@
              <p class="model-title">项目案例  <router-link to="/myProduction"> 更多案例</router-link></p>
              <div>
                <div>
-                 <img src="../assets/img/logo.png" />
+                 <img src="http://p3gc5ydac.bkt.clouddn.com/logo.png" />
                  <p>vue.js的项目搭建案例</p>
                </div>
                <div>
-                 <img src="../assets/img/react.jpg" />
+                 <img src="http://p3gc5ydac.bkt.clouddn.com/react.jpg" />
                  <p>vue.js的项目搭建案例</p>
                </div>
                <div>
-                 <img src="../assets/img/nodejs.jpg" />
+                 <img src="http://p3gc5ydac.bkt.clouddn.com/nodejs.jpg" />
                  <p>vue.js的项目搭建案例</p>
                </div>
                <div>
-                 <img src="../assets/img/angular.jpg" />
+                 <img src="http://p3gc5ydac.bkt.clouddn.com/angular.jpg" />
                  <p>vue.js的项目搭建案例</p>
                </div>
              </div>
